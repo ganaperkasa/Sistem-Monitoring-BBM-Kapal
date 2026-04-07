@@ -18,6 +18,6 @@ class Emisi extends Model
 
      public function operasional()
     {
-        return $this->belongsTo(Operasional::class);
+        return $this->belongsTo(Operasional::class, 'operasional_id');
     }
 }

@@ -18,6 +18,6 @@ class Operasional extends Model
 
      public function emisi()
     {
-        return $this->hasOne(Emisi::class);
+        return $this->hasOne(Emisi::class, 'operasional_id');
     }
 }

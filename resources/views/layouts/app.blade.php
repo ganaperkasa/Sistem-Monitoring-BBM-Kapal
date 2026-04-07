@@ -5,8 +5,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sistem Monitoring BBM Kapal</title>
-  <link rel="shortcut icon" type="image/png" href="{{ url('assets/images/logos/logopoltekpel.png') }}" />
-  <link rel="stylesheet" href="{{ url('assets/css/styles.min.css') }}" />
+  <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/logopoltekpel.png') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+@stack('styles')
 </head>
 
 <body>
@@ -21,13 +24,19 @@
       </div>
     </div>
 </div>
+
+
 <script src="{{ url('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 <script src="{{ url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url('assets/js/sidebarmenu.js') }}"></script>
 <script src="{{ url('assets/js/app.min.js') }}"></script>
 <script src="{{ url('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
 <script src="{{ url('assets/libs/simplebar/dist/simplebar.js') }}"></script>
 <script src="{{ url('assets/js/dashboard.js') }}"></script>
+@stack('scripts')
 </body>
 
 </html>

@@ -14,7 +14,7 @@ Route::get('/konsumsi-bbm', [KonsumsiBBMController::class, 'index'])->name('kons
 Route::get('/operasional', [KonsumsiBBMController::class, 'index']);
 Route::get('/operasional/create', [KonsumsiBBMController::class, 'create'])->name('operasional.create');
 Route::post('/operasional/store', [KonsumsiBBMController::class, 'store']);
-Route::get('/operasional/data', [KonsumsiBBMController::class, 'data']);
+Route::get('/operasional/data', [KonsumsiBBMController::class, 'data'])->name('operasional.data');
 
 // Route::get('/', function () {
 //     return view('dashboard');
