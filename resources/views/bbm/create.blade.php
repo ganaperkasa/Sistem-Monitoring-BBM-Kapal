@@ -9,13 +9,41 @@
             @csrf
 
             <div class="mb-3">
-                <label class="form-label">Nama Kapal</label>
-                <input type="text" name="nama_kapal" class="form-control" required>
+                <label class="form-label">Jenis Kapal</label>
+                <input type="text" name="jenis_kapal" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Tanggal</label>
-                <input type="date" name="tanggal" class="form-control" required>
+                <label class="form-label">Tahun Kapal</label>
+                <input type="number" name="tahun_kapal" id="tahun_kapal" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Kapasitas Kapal</label>
+                <input type="number" name="kapasitas_kapal" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Area Pelayaran</label>
+                <select name="area" id="area" class="form-control">
+                    <option value="non_eca">Non-ECA</option>
+                    <option value="eca">ECA</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tier IMO</label>
+                <input type="text" id="tier" class="form-control" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">RPM</label>
+                <input type="number" name="rpm" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Daya Mesin (kW)</label>
+                <input type="number" step="0.01" name="daya_mesin" class="form-control" required>
             </div>
 
             <div class="mb-3">
@@ -24,18 +52,51 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Jarak Tempuh (Mil Laut)</label>
-                <input type="number" step="0.01" name="jarak_tempuh" class="form-control" required>
+                <label class="form-label">Jarak Tempuh (NM)</label>
+                <input type="number" name="jarak_tempuh" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Konsumsi BBM (Liter)</label>
-                <input type="number" step="0.01" name="konsumsi_bbm" class="form-control" required>
+                <label class="form-label">Konsumsi BBM (Ton)</label>
+                <input type="number"  name="konsumsi_bbm" class="form-control" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </form>
+            <div class="mb-3">
+                <label class="form-label">Jenis BBM</label>
+                <select name="jenis_bbm_id" class="form-control" required>
+                    <option value="">-- Pilih BBM --</option>
+                    @foreach($bbm as $item)
+                        <option value="{{ $item->id }}">
+                            {{ $item->jenis_bbm }} | CO₂: {{ $item->faktor_emisi }} | S: {{ $item->sulfur }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
+            <button class="btn btn-primary">Simpan & Hitung</button>
+        </form>
     </div>
 </div>
+
+<script>
+function hitungTier() {
+    let tahun = parseInt(document.getElementById('tahun_kapal').value);
+    let area = document.getElementById('area').value;
+    let tier = '';
+
+    if (tahun < 2011) {
+        tier = 'Tier I';
+    } else if (tahun >= 2011 && tahun < 2016) {
+        tier = 'Tier II';
+    } else {
+        tier = (area === 'eca') ? 'Tier III' : 'Tier II';
+    }
+
+    document.getElementById('tier').value = tier;
+}
+
+document.getElementById('tahun_kapal').addEventListener('input', hitungTier);
+document.getElementById('area').addEventListener('change', hitungTier);
+</script>
+
 @endsection

@@ -13,13 +13,14 @@
                 <table id="table" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Nama Kapal</th>
-                            <th>Tanggal</th>
+                            <th>Jenis Kapal</th>
+                            <th>Tahun Kapal</th>
+                            <th>Kapasitas Kapal</th>
+                            <th>Kecepatan Kapal (Rpm)</th>
+                            <th>Daya Mesin</th>
                             <th>Lama Operasi</th>
-                            <th>Jarak</th>
-                            <th>Konsumsi</th>
-                            <th>CO2</th>
-                            <th>Efisiensi</th>
+                            <th>Jarak Tempuh</th>
+                            <th>Konsumsi BBM</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -36,13 +37,14 @@ $(document).ready(function() {
         serverSide: true,
         ajax: "{{ url('/operasional/data') }}",
         columns: [
-            { data: 'nama_kapal' },
-            { data: 'tanggal' },
+            { data: 'jenis_kapal' },
+            { data: 'tahun_kapal' },
+            { data: 'kapasitas_kapal' },
+            { data: 'rpm' },
+            { data: 'daya_mesin' },
             { data: 'lama_operasi' },
             { data: 'jarak_tempuh' },
             { data: 'konsumsi_bbm' },
-            { data: 'co2' },
-            { data: 'efisiensi' },
             { data: 'aksi', orderable: false, searchable: false }
         ]
     });

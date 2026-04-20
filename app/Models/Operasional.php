@@ -6,18 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Operasional extends Model
 {
-    protected $table = 'operasionals';
+    protected $table = 'operationals';
 
-    protected $fillable = [
-        'nama_kapal',
-        'tanggal',
-        'lama_operasi',
-        'jarak_tempuh',
-        'konsumsi_bbm',
-    ];
+    protected $fillable = ['jenis_kapal', 'tahun_kapal', 'kapasitas_kapal', 'area', 'tier', 'rpm', 'daya_mesin', 'lama_operasi', 'jarak_tempuh', 'konsumsi_bbm', 'jenis_bbm_id', 'co2', 'nox', 'sox', 'cii'];
 
-     public function emisi()
+    public function bbm()
     {
-        return $this->hasOne(Emisi::class, 'operasional_id');
+        return $this->belongsTo(JenisBbm::class, 'jenis_bbm_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
