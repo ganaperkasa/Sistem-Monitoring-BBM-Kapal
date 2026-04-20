@@ -4,11 +4,24 @@ $(function () {
   // =====================================
   // Profit
   // =====================================
+  // ambil data dari Laravel
+  var data = window.chartData || [];
+
+  var tanggal = data.map(d => new Date(d.created_at).toISOString().split('T')[0]);
+  var co2 = data.map(d => d.co2);
+  var nox = data.map(d => d.nox);
+  var sox = data.map(d => d.sox);
+
+  // =====================================
+  // Sales Overview (EMISI)
+  // =====================================
   var chart = {
     series: [
-      { name: "Earnings this month:", data: [355, 390, 300, 350, 390, 180, 355, 390] },
-      { name: "Expense this month:", data: [280, 250, 325, 215, 250, 310, 280, 250] },
+      { name: "CO2", data: co2 },
+      { name: "NOx", data: nox },
+      { name: "SOx", data: sox },
     ],
+
 
     chart: {
       type: "bar",
@@ -57,7 +70,7 @@ $(function () {
 
     xaxis: {
       type: "category",
-      categories: ["16/08", "17/08", "18/08", "19/08", "20/08", "21/08", "22/08", "23/08"],
+      categories: tanggal,
       labels: {
         style: { cssClass: "grey--text lighten-2--text fill-color" },
       },
