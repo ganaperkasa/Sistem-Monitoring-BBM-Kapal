@@ -32,15 +32,24 @@ class JenisBBMController extends Controller
             'sulfur' => $sulfur,
         ]);
 
-        $request->validate([
-            'jenis_bbm' => 'required',
-            'faktor_emisi' => ['required', 'regex:/^[0-9.,]+$/'],
-            'sulfur' => ['required', 'regex:/^[0-9.,]+$/'],
-        ]);
+        $request->validate(
+            [
+                'jenis_bbm' => 'required',
+                'faktor_emisi' => ['required', 'regex:/^[0-9.,]+$/'],
+                'sulfur' => ['required', 'regex:/^[0-9.,]+$/'],
+            ],
+            [
+                'jennis_bbm.required' => 'Jenis BBM wajib diisi',
+                'faktor_emisi.required' => 'Faktor Emisi wajib diisi',
+                'faktor_emisi.regex' => 'Faktor Emisi harus berupa angka',
+                'sulfur.required' => 'Sulfur wajib diisi',
+                'sulfur.regex' => 'Sulfur harus berupa angka',
+            ],
+        );
 
-        \App\Models\JenisBbm::create($request->all());
+        JenisBBM::create($request->all());
 
-        return redirect()->back()->with('success', 'Data berhasil disimpan');
+        return redirect()->route('jenis-bbm')->with('success', 'Data berhasil disimpan');
     }
 
     public function data()

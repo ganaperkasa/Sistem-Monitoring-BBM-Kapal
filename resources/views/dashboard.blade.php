@@ -82,7 +82,7 @@
 
     <!-- Footer -->
     <div class="py-4 text-center">
-        <p class="mb-0 fs-6">GP Dev - Copyright 2026</p>
+        <p class="mb-0 fs-2">GP Dev - Copyright 2026</p>
     </div>
 
 </div> {{-- 🔥 PENUTUP container-fluid --}}

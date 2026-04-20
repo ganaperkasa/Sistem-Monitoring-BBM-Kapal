@@ -20,7 +20,9 @@
     <div class="body-wrapper">
       @include('layouts.header')
       <div class="container-fluid">
+
         @yield('content')
+
       </div>
     </div>
 </div>
@@ -36,6 +38,14 @@
 <script src="{{ url('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
 <script src="{{ url('assets/libs/simplebar/dist/simplebar.js') }}"></script>
 <script src="{{ url('assets/js/dashboard.js') }}"></script>
+<script >
+     setTimeout(function () {
+        document.querySelectorAll('.alert').forEach(function(alert) {
+            alert.classList.remove('show');
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 3000);
+</script>
 @stack('scripts')
 </body>
 

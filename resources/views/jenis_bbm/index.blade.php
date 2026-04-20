@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
     <div class="card">
         <div class="card-body">
             <h5 class="card-title fw-semibold ">Tambah Jenis BBM</h5>

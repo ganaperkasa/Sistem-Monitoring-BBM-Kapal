@@ -12,7 +12,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/konsumsi-bbm', [KonsumsiBBMController::class, 'index'])->name('konsumsi-bbm')->middleware('auth');
 
-Route::get('/operasional', [KonsumsiBBMController::class, 'index']);
+Route::get('/operasional', [KonsumsiBBMController::class, 'index'])->name('operasional')->middleware('auth');
 Route::get('/operasional/create', [KonsumsiBBMController::class, 'create'])->name('operasional.create');
 Route::post('/operasional/store', [KonsumsiBBMController::class, 'store']);
 Route::get('/operasional/data', [KonsumsiBBMController::class, 'data'])->name('operasional.data');
