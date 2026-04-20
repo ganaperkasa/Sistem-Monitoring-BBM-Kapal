@@ -51,11 +51,11 @@ class KonsumsiBBMController extends Controller
 
         return DataTables::of($query)
             ->addColumn('co2', function ($row) {
-    return optional($row->emisi)->co2 ?? '-';
-})
-->addColumn('efisiensi', function ($row) {
-    return optional($row->emisi)->efisiensi ?? '-';
-})
+                return optional($row->emisi)->co2 ?? '-';
+            })
+            ->addColumn('efisiensi', function ($row) {
+                return optional($row->emisi)->efisiensi ?? '-';
+            })
             ->addColumn('aksi', function ($row) {
                 return '<button>Edit</button>';
             })
