@@ -45,7 +45,8 @@
                 <span class="hide-menu">Jenis BBM</span>
               </a>
             </li>
-            <li class="nav-small-cap">
+
+            {{-- <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">UI COMPONENTS</span>
             </li>
@@ -128,7 +129,8 @@
                 </span>
                 <span class="hide-menu">Sample Page</span>
               </a>
-            </li>
+            </li> --}}
+            
           </ul>
         </nav>
         <!-- End Sidebar navigation -->

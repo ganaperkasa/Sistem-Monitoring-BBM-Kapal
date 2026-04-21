@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <div class="card">
-        //buatkan untuk alert sukses dan error
         @if ($message = Session::get('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Sukses!</strong> {{ $message }}
@@ -16,7 +15,7 @@
             </div>
         @endif
         <div class="card-body">
-            <h5 class="card-title fw-semibold ">Sample Page</h5>
+            <h5 class="card-title fw-semibold ">Data Operasional Kapal</h5>
             <div class="d-flex justify-content-end ">
 
             <a href="{{ route('operasional.create') }}" class="btn btn-primary mb-2" >
