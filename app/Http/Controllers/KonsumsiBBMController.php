@@ -292,11 +292,6 @@ class KonsumsiBBMController extends Controller
                                 <a href="'.route('operasional.show', $row->id).' " class="btn btn-sm btn-info me-1">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <button class="btn btn-sm btn-danger btn-delete" data-id="' .
-                                        $row->id .
-                                        '">
-                                    <i class="bi bi-trash"></i>
-                                </button>
                             </div>
                         ';
             })
@@ -304,3 +299,9 @@ class KonsumsiBBMController extends Controller
             ->make(true);
     }
 }
+
+                                // <button class="btn btn-sm btn-danger btn-delete" data-id="' .
+                                //         $row->id .
+                                //         '">
+                                //     <i class="bi bi-trash"></i>
+                                // </button>

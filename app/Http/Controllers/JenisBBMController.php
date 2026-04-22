@@ -56,10 +56,10 @@ class JenisBBMController extends Controller
     {
         $query = JenisBBM::select('jenis_bbms.*');
         return DataTables::of($query)
-            ->addColumn('aksi', function ($row) {
-                return '<button>Edit</button>';
-            })
-            ->rawColumns(['aksi'])
+            // ->addColumn('aksi', function ($row) {
+            //     return '<button>Edit</button>';
+            // })
+            // ->rawColumns(['aksi'])
             ->make(true);
     }
 }

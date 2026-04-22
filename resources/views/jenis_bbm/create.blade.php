@@ -48,7 +48,7 @@
 
                 <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('jenis-bbm') }}" class="btn btn-danger">Batal</a>
+                <a href="{{ route('jenisbbm.') }}" class="btn btn-danger">Batal</a>
                 </div>
             </form>
             <script id="m1y4qk">

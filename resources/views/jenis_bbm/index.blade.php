@@ -22,7 +22,7 @@
                             <th>Jenis Fuel</th>
                             <th>Faktor Emisi CO2</th>
                             <th>Sulfur (%)</th>
-                            <th>Aksi</th>
+                            {{-- <th>Aksi</th> --}}
                         </tr>
                     </thead>
                 </table>
@@ -40,8 +40,8 @@ $(document).ready(function() {
         columns: [
             { data: 'jenis_bbm' },
             { data: 'faktor_emisi' },
-            { data: 'sulfur' },
-            { data: 'aksi', orderable: false, searchable: false }
+            { data: 'sulfur' }
+            // { data: 'aksi', orderable: false, searchable: false }
         ]
     });
 });
