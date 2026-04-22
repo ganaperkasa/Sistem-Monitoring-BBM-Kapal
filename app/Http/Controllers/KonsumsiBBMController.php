@@ -7,13 +7,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Operasional;
 use App\Models\Emisi;
 use Yajra\DataTables\Facades\DataTables;
+
 use App\Models\JenisBBM;
+use App\Models\User;
+
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class KonsumsiBBMController extends Controller
 {
     public function index()
     {
+        // dd(Auth::id());
         return view('bbm/index');
     }
     public function create()
@@ -84,6 +88,7 @@ class KonsumsiBBMController extends Controller
         $cii = $co2 / ($request->jarak_tempuh * $request->kapasitas_kapal);
 
         Operasional::create([
+            'user_id' => auth()->id(),
             'jenis_kapal' => $request->jenis_kapal,
             'tahun_kapal' => $request->tahun_kapal,
             'kapasitas_kapal' => $request->kapasitas_kapal,
@@ -102,7 +107,8 @@ class KonsumsiBBMController extends Controller
             'cii' => $cii,
         ]);
 
-        return back()->with('success', 'Data berhasil disimpan & dihitung');
+
+        return redirect()->route('operasional')->with('success', 'Data berhasil disimpan & dihitung');
     }
     function getTier($tahun, $isECA = false)
     {

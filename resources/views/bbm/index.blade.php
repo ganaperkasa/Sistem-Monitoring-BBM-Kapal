@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="card">
-        @if ($message = Session::get('success'))
+@if ($message = Session::get('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Sukses!</strong> {{ $message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -14,6 +13,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+    <div class="card">
+
         <div class="card-body">
             <h5 class="card-title fw-semibold ">Data Operasional Kapal</h5>
             <div class="d-flex justify-content-end ">

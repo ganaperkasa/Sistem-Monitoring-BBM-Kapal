@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
@@ -15,12 +16,14 @@ Route::get('/konsumsi-bbm', [KonsumsiBBMController::class, 'index'])->name('kons
 ROute::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [LoginController::class, 'register'])->name('register.store');
 
-Route::get('/operasional', [KonsumsiBBMController::class, 'index'])->name('operasional')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+Route::get('/operasional', [KonsumsiBBMController::class, 'index'])->name('operasional');
 Route::get('/operasional/create', [KonsumsiBBMController::class, 'create'])->name('operasional.create');
-Route::post('/operasional/store', [KonsumsiBBMController::class, 'store']);
+Route::post('/operasional/store', [KonsumsiBBMController::class, 'store'])->name('operasional.store');
 Route::get('/operasional/data', [KonsumsiBBMController::class, 'data'])->name('operasional.data');
 Route::get('/operasional/{id}', [KonsumsiBBMController::class, 'show'])->name('operasional.show');
 Route::get('/operasional/{id}/pdf', [KonsumsiBBMController::class, 'cetakPdf'])->name('operasional.pdf');
+});
 
 Route::get('/jenis-bbm', [JenisBBMController::class, 'index'])->name('jenis-bbm')->middleware('auth');
 Route::get('/jenisbbm/create', [JenisBBMController::class, 'create'])->name('jenisbbm.create')->middleware('auth');

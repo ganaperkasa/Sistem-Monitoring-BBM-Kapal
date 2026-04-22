@@ -19,18 +19,16 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+    $request->session()->regenerate(); // penting
 
+    $user = Auth::user();
 
-            if ($user->role_id == 1) {
-                return redirect()->route('dashboard');
-            } else {
-                Auth::logout();
-                return back()->withErrors([
-                    'email' => 'Unauthorized access.',
-                ]);
-            }
-        }
+    if ($user->role_id == 1) {
+        return redirect()->route('dashboard');
+    } else {
+        return redirect()->route('operasional'); // arahkan user biasa ke sini
+    }
+}
         return back()->with('error', 'Email atau password salah!');
     }
 
@@ -64,7 +62,7 @@ class LoginController extends Controller
     User::create([
         'name' => $request->name,
         'email' => $request->email,
-        'password' => Hash::make($request->password), 
+        'password' => Hash::make($request->password),
         'role_id' => 2
     ]);
 
