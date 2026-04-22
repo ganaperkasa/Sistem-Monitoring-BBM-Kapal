@@ -41,7 +41,7 @@
             $('#table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ url('/operasional/data') }}",
+                ajax: "{{ route('operasional.data') }}",
                 columns: [{
                         data: 'jenis_kapal'
                     },
