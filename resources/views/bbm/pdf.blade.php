@@ -119,7 +119,7 @@
                 <th>Status</th>
             </tr>
             <tr>
-                <td>CO₂</td>
+                <td>CO2</td>
                 <td>{{ $data->co2 }}</td>
                 <td><span class="badge {{ $co2_color }}">{{ $co2_status }}</span></td>
             </tr>
@@ -145,7 +145,7 @@
     <div class="section">
         <h3>Rekomendasi</h3>
         <ul>
-            <li><strong>CO₂:</strong>
+            <li><strong>CO2:</strong>
                 @if($co2_color == 'success')
                     Pertahankan efisiensi bahan bakar.
                 @elseif($co2_color == 'warning')
@@ -193,7 +193,7 @@
     <div class="kesimpulan">
         <strong>Kesimpulan:</strong><br>
         Kondisi emisi kapal saat ini <strong>{{ $overall }}</strong> berdasarkan parameter
-        CO₂, NOx, SOx, dan CII yang mengacu pada MARPOL Annex VI.
+        CO2, NOx, SOx, dan CII yang mengacu pada MARPOL Annex VI.
     </div>
 
 </body>

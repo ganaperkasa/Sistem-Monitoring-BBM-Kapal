@@ -108,7 +108,7 @@ class KonsumsiBBMController extends Controller
         ]);
 
 
-        return redirect()->route('operasional')->with('success', 'Data berhasil disimpan & dihitung');
+        return redirect()->route('operasional.')->with('success', 'Data berhasil disimpan & dihitung');
     }
     function getTier($tahun, $isECA = false)
     {

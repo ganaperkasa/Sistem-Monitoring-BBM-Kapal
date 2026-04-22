@@ -15,7 +15,7 @@
         <div class="card-body">
             <h5 class="card-title fw-semibold mb-4">Input Data Jenis BBM Kapal</h5>
 
-            <form action="{{ url('/jenisbbm/store') }}" method="POST">
+            <form action="{{ route('jenisbbm.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">

@@ -49,7 +49,7 @@ class JenisBBMController extends Controller
 
         JenisBBM::create($request->all());
 
-        return redirect()->route('jenis-bbm')->with('success', 'Data berhasil disimpan');
+        return redirect()->route('jenisbbm.')->with('success', 'Data berhasil disimpan');
     }
 
     public function data()
