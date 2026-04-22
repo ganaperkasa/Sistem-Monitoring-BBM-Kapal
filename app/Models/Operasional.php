@@ -12,7 +12,7 @@ class Operasional extends Model
 
     public function bbm()
     {
-        return $this->belongsTo(JenisBbm::class, 'jenis_bbm_id');
+        return $this->belongsTo(JenisBBM::class, 'jenis_bbm_id');
     }
 
     public function user()
