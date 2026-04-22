@@ -12,6 +12,9 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/konsumsi-bbm', [KonsumsiBBMController::class, 'index'])->name('konsumsi-bbm')->middleware('auth');
 
+ROute::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [LoginController::class, 'register'])->name('register.store');
+
 Route::get('/operasional', [KonsumsiBBMController::class, 'index'])->name('operasional')->middleware('auth');
 Route::get('/operasional/create', [KonsumsiBBMController::class, 'create'])->name('operasional.create');
 Route::post('/operasional/store', [KonsumsiBBMController::class, 'store']);
