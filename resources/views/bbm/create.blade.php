@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 <div class="card">
     <div class="card-body">
         <h5 class="card-title fw-semibold mb-4">Input Data Operasional Kapal</h5>
@@ -10,17 +19,32 @@
 
             <div class="mb-3">
                 <label class="form-label">Jenis Kapal</label>
-                <input type="text" name="jenis_kapal" class="form-control" required>
+                <input type="text" name="jenis_kapal" value="{{ old('jenis_kapal') }}"class="form-control @error('jenis_kapal') is-invalid @enderror" required>
+                @error('jenis_kapal')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Tahun Kapal</label>
-                <input type="number" name="tahun_kapal" id="tahun_kapal" class="form-control" required>
+                <input type="number" name="tahun_kapal" id="tahun_kapal" value="{{ old('tahun_kapal') }}"class="form-control @error('tahun_kapal') is-invalid @enderror" required>
+                @error('tahun_kapal')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Kapasitas Kapal</label>
-                <input type="number" name="kapasitas_kapal" class="form-control" required>
+                <input type="number" name="kapasitas_kapal" value="{{ old('kapasitas_kapal') }}"class="form-control @error('kapasitas_kapal') is-invalid @enderror" required>
+                @error('kapasitas_kapal')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
@@ -38,27 +62,52 @@
 
             <div class="mb-3">
                 <label class="form-label">RPM</label>
-                <input type="number" name="rpm" class="form-control" required>
+                <input type="number" name="rpm" value="{{ old('rpm') }}"class="form-control @error('rpm') is-invalid @enderror" required>
+                @error('rpm')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Daya Mesin (kW)</label>
-                <input type="number" step="0.01" name="daya_mesin" class="form-control" required>
+                <input type="number" step="0.01" name="daya_mesin" value="{{ old('daya_mesin') }}"class="form-control @error('daya_mesin') is-invalid @enderror" required>
+                @error('daya_mesin')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Lama Operasi (Jam)</label>
-                <input type="number" step="0.01" name="lama_operasi" class="form-control" required>
+                <input type="number" step="0.01" name="lama_operasi" value="{{ old('lama_operasi') }}"class="form-control @error('lama_operasi') is-invalid @enderror" required>
+                @error('lama_operasi')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Jarak Tempuh (NM)</label>
-                <input type="number" name="jarak_tempuh" class="form-control" required>
+                <input type="number" name="jarak_tempuh" value="{{ old('jarak_tempuh') }}"class="form-control @error('jarak_tempuh') is-invalid @enderror" required>
+                @error('jarak_tempuh')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Konsumsi BBM (Ton)</label>
-                <input type="number"  name="konsumsi_bbm" class="form-control" required>
+                <input type="number"  name="konsumsi_bbm" value="{{ old('konsumsi_bbm') }}"class="form-control @error('konsumsi_bbm') is-invalid @enderror" required>
+                @error('konsumsi_bbm')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
