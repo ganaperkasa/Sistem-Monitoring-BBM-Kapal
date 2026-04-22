@@ -37,6 +37,7 @@
                 <span class="hide-menu">Konsumsi BBM</span>
               </a>
             </li>
+            @if(Auth::user()->role_id == 1)
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{ url('jenis-bbm') }}" aria-expanded="false">
                 <span>
@@ -45,6 +46,7 @@
                 <span class="hide-menu">Jenis BBM</span>
               </a>
             </li>
+            @endif
 
             {{-- <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -130,7 +132,7 @@
                 <span class="hide-menu">Sample Page</span>
               </a>
             </li> --}}
-            
+
           </ul>
         </nav>
         <!-- End Sidebar navigation -->
