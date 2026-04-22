@@ -92,6 +92,78 @@ class KonsumsiBBMController extends Controller
             return $isECA ? 'Tier III' : 'Tier II';
         }
     }
+    public function show($id)
+    {
+        $data = Operasional::with('bbm')->findOrFail($id);
+
+       // ================= CO2 =================
+    if ($data->co2 < 50) {
+        $co2_status = 'Rendah';
+        $co2_color = 'success';
+    } elseif ($data->co2 <= 150) {
+        $co2_status = 'Sedang';
+        $co2_color = 'warning';
+    } else {
+        $co2_status = 'Tinggi';
+        $co2_color = 'danger';
+    }
+
+    // ================= NOX =================
+    if ($data->nox <= 3.4) {
+        $nox_status = 'Sangat Baik';
+        $nox_color = 'success';
+    } elseif ($data->nox <= 14.4) {
+        $nox_status = 'Normal';
+        $nox_color = 'warning';
+    } else {
+        $nox_status = 'Tinggi';
+        $nox_color = 'danger';
+    }
+
+    // ================= SOX =================
+    if ($data->sox <= 0.001) {
+        $sox_status = 'Sangat Bersih';
+        $sox_color = 'success';
+    } elseif ($data->sox <= 0.005) {
+        $sox_status = 'Sesuai IMO';
+        $sox_color = 'warning';
+    } else {
+        $sox_status = 'Tidak Sesuai';
+        $sox_color = 'danger';
+    }
+
+    // ================= CII =================
+    if ($data->cii < 5) {
+        $cii_status = 'A - Sangat Efisien';
+        $cii_color = 'success';
+    } elseif ($data->cii < 8) {
+        $cii_status = 'B - Efisien';
+        $cii_color = 'info';
+    } elseif ($data->cii < 12) {
+        $cii_status = 'C - Cukup';
+        $cii_color = 'warning';
+    } elseif ($data->cii < 15) {
+        $cii_status = 'D - Buruk';
+        $cii_color = 'danger';
+    } else {
+        $cii_status = 'E - Sangat Buruk';
+        $cii_color = 'dark';
+    }
+
+   
+    $overall = ($co2_color == 'success' && $nox_color == 'success' && $sox_color == 'success' && $cii_color == 'success')
+        ? 'Kapal Ramah Lingkungan'
+        : 'Perlu Evaluasi Operasional';
+
+    return view('bbm.show', compact(
+        'data',
+        'co2_status','co2_color',
+        'nox_status','nox_color',
+        'sox_status','sox_color',
+        'cii_status','cii_color',
+        'overall'
+    ));
+    }
 
     public function data()
     {
@@ -104,7 +176,18 @@ class KonsumsiBBMController extends Controller
         return DataTables::of($query)
 
             ->addColumn('aksi', function ($row) {
-                return '<button>Edit</button>';
+                return '
+                            <div class="d-flex">
+                                <a href="'.route('operasional.show', $row->id).' " class="btn btn-sm btn-info me-1">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <button class="btn btn-sm btn-danger btn-delete" data-id="' .
+                                        $row->id .
+                                        '">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        ';
             })
             ->rawColumns(['aksi'])
             ->make(true);

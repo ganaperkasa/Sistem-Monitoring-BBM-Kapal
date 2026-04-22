@@ -19,6 +19,8 @@ Route::get('/operasional', [KonsumsiBBMController::class, 'index'])->name('opera
 Route::get('/operasional/create', [KonsumsiBBMController::class, 'create'])->name('operasional.create');
 Route::post('/operasional/store', [KonsumsiBBMController::class, 'store']);
 Route::get('/operasional/data', [KonsumsiBBMController::class, 'data'])->name('operasional.data');
+Route::get('/operasional/{id}', [KonsumsiBBMController::class, 'show'])->name('operasional.show');
+Route::get('/operasional/{id}/pdf', [KonsumsiBBMController::class, 'cetakPdf'])->name('operasional.pdf');
 
 Route::get('/jenis-bbm', [JenisBBMController::class, 'index'])->name('jenis-bbm')->middleware('auth');
 Route::get('/jenisbbm/create', [JenisBBMController::class, 'create'])->name('jenisbbm.create')->middleware('auth');

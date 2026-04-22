@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 @stack('styles')
 </head>
 
@@ -40,7 +41,7 @@
 <script src="{{ url('assets/js/dashboard.js') }}"></script>
 <script >
      setTimeout(function () {
-        document.querySelectorAll('.alert').forEach(function(alert) {
+        document.querySelectorAll('.alert-auto-close').forEach(function(alert) {
             alert.classList.remove('show');
             setTimeout(() => alert.remove(), 500);
         });
