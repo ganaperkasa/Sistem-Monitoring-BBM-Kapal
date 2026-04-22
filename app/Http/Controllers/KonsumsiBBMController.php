@@ -122,7 +122,15 @@ class KonsumsiBBMController extends Controller
     }
     public function show($id)
     {
-        $data = Operasional::with('bbm')->findOrFail($id);
+        if (Auth::user()->role_id == 1) {
+    $data = Operasional::with('bbm')->findOrFail($id);
+} else {
+    $data = Operasional::with('bbm')
+        ->where('id', $id)
+        ->where('user_id', Auth::id())
+        ->firstOrFail();
+}
+
 
     if ($data->co2 < 50) {
         $co2_status = 'Rendah';
@@ -190,7 +198,14 @@ class KonsumsiBBMController extends Controller
 
     public function cetakPdf($id)
     {
-        $data = Operasional::with('bbm')->findOrFail($id);
+        if (Auth::user()->role_id == 1) {
+            $data = Operasional::with('bbm')->findOrFail($id);
+        } else {
+            $data = Operasional::with('bbm')
+                ->where('id', $id)
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+        }
 
         if ($data->co2 < 50) {
             $co2_status = 'Rendah';

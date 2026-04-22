@@ -1,34 +1,53 @@
 <?php
 
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KonsumsiBBMController;
 use App\Http\Controllers\JenisBBMController;
 
+/*
+|--------------------------------------------------------------------------
+| AUTH
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::get('/konsumsi-bbm', [KonsumsiBBMController::class, 'index'])->name('konsumsi-bbm')->middleware('auth');
 
-ROute::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
+Route::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [LoginController::class, 'register'])->name('register.store');
 
-Route::middleware(['auth'])->group(function () {
-Route::get('/operasional', [KonsumsiBBMController::class, 'index'])->name('operasional');
-Route::get('/operasional/create', [KonsumsiBBMController::class, 'create'])->name('operasional.create');
-Route::post('/operasional/store', [KonsumsiBBMController::class, 'store'])->name('operasional.store');
-Route::get('/operasional/data', [KonsumsiBBMController::class, 'data'])->name('operasional.data');
-Route::get('/operasional/{id}', [KonsumsiBBMController::class, 'show'])->name('operasional.show');
-Route::get('/operasional/{id}/pdf', [KonsumsiBBMController::class, 'cetakPdf'])->name('operasional.pdf');
-});
 
-Route::get('/jenis-bbm', [JenisBBMController::class, 'index'])->name('jenis-bbm')->middleware('auth');
-Route::get('/jenisbbm/create', [JenisBBMController::class, 'create'])->name('jenisbbm.create')->middleware('auth');
-Route::post('/jenisbbm/store', [JenisBBMController::class, 'store'])->name('jenisbbm.store')->middleware('auth');
-Route::get('/jenis-bbm/data', [JenisBBMController::class, 'data'])->name('jenisbbm.data')->middleware('auth');
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
+/*
+|--------------------------------------------------------------------------
+| PROTECTED ROUTES (LOGIN REQUIRED)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Konsumsi BBM (alias halaman utama user)
+    Route::get('/konsumsi-bbm', [KonsumsiBBMController::class, 'index'])->name('konsumsi-bbm');
+
+    // Operasional
+    Route::prefix('operasional')->name('operasional.')->group(function () {
+        Route::get('/', [KonsumsiBBMController::class, 'index'])->name('');
+        Route::get('/create', [KonsumsiBBMController::class, 'create'])->name('create');
+        Route::post('/store', [KonsumsiBBMController::class, 'store'])->name('store');
+        Route::get('/data', [KonsumsiBBMController::class, 'data'])->name('data');
+        Route::get('/{id}', [KonsumsiBBMController::class, 'show'])->name('show');
+        Route::get('/{id}/pdf', [KonsumsiBBMController::class, 'cetakPdf'])->name('pdf');
+    });
+
+    // Jenis BBM
+    Route::prefix('jenis-bbm')->name('jenisbbm.')->group(function () {
+        Route::get('/', [JenisBBMController::class, 'index'])->name('');
+        Route::get('/create', [JenisBBMController::class, 'create'])->name('create');
+        Route::post('/store', [JenisBBMController::class, 'store'])->name('store');
+        Route::get('/data', [JenisBBMController::class, 'data'])->name('data');
+    });
+
+});
