@@ -7,6 +7,7 @@
   <title>Sistem Monitoring BBM Kapal</title>
   <link rel="shortcut icon" type="image/png" href="{{ url('assets/images/logos/logopoltekpel.png') }}" />
   <link rel="stylesheet" href="{{ url('assets/css/styles.min.css') }}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
