@@ -1,28 +1,20 @@
 @extends('layouts.app')
 @section('content')
-@if ($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Sukses!</strong> {{ $message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
-        @if ($message = Session::get('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error!</strong> {{ $message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-auto-close show" role="alert">
+            <strong>Sukses!</strong> {{ $message }}
+        </div>
+    @endif
     <div class="card">
 
         <div class="card-body">
             <h5 class="card-title fw-semibold ">Data Operasional Kapal</h5>
             <div class="d-flex justify-content-end ">
 
-            <a href="{{ route('operasional.create') }}" class="btn btn-primary mb-2" >
-                + Tambah Data
-            </a>
-        </div>
+                <a href="{{ route('operasional.create') }}" class="btn btn-primary mb-2">
+                    + Tambah Data
+                </a>
+            </div>
             <div class="table-responsive">
                 <table id="table" class="table table-bordered">
                     <thead>
@@ -44,24 +36,43 @@
     </div>
 @endsection
 @push('scripts')
-<script>
-$(document).ready(function() {
-    $('#table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ url('/operasional/data') }}",
-        columns: [
-            { data: 'jenis_kapal' },
-            { data: 'tahun_kapal' },
-            { data: 'kapasitas_kapal' },
-            { data: 'rpm' },
-            { data: 'daya_mesin' },
-            { data: 'lama_operasi' },
-            { data: 'jarak_tempuh' },
-            { data: 'konsumsi_bbm' },
-            { data: 'aksi', orderable: false, searchable: false }
-        ]
-    });
-});
-</script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ url('/operasional/data') }}",
+                columns: [{
+                        data: 'jenis_kapal'
+                    },
+                    {
+                        data: 'tahun_kapal'
+                    },
+                    {
+                        data: 'kapasitas_kapal'
+                    },
+                    {
+                        data: 'rpm'
+                    },
+                    {
+                        data: 'daya_mesin'
+                    },
+                    {
+                        data: 'lama_operasi'
+                    },
+                    {
+                        data: 'jarak_tempuh'
+                    },
+                    {
+                        data: 'konsumsi_bbm'
+                    },
+                    {
+                        data: 'aksi',
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+        });
+    </script>
 @endpush
