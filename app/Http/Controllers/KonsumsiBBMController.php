@@ -34,7 +34,28 @@ class KonsumsiBBMController extends Controller
             'jarak_tempuh' => 'required|numeric',
             'konsumsi_bbm' => 'required|numeric',
             'jenis_bbm_id' => 'required',
-        ]);
+        ], [
+            'jenis_kapal.required' => 'Jenis kapal wajib diisi',
+            'tahun_kapal.required' => 'Tahun kapal wajib diisi',
+            'tahun_kapal.digits' => 'Tahun kapal harus berupa 4 digit',
+            'tahun_kapal.integer' => 'Tahun kapal harus berupa angka',
+            'tahun_kapal.min' => 'Tahun kapal tidak valid',
+            'tahun_kapal.max' => 'Tahun kapal tidak valid',
+            'kapasitas_kapal.required' => 'Kapasitas kapal wajib diisi',
+            'kapasitas_kapal.numeric' => 'Kapasitas kapal harus berupa angka',
+            'kapasitas_kapal.min' => 'Kapasitas kapal minimal 1 GT',
+            'rpm.required' => 'RPM wajib diisi',
+            'rpm.numeric' => 'RPM harus berupa angka',
+            'daya_mesin.required' => 'Daya mesin wajib diisi',
+            'daya_mesin.numeric' => 'Daya mesin harus berupa angka',
+            'lama_operasi.required' => 'Lama operasi wajib diisi',
+            'lama_operasi.numeric' => 'Lama operasi harus berupa angka',
+            'jarak_tempuh.required' => 'Jarak tempuh wajib diisi',
+            'jarak_tempuh.numeric' => 'Jarak tempuh harus berupa angka',
+            'konsumsi_bbm.required' => 'Konsumsi BBM wajib diisi',
+            'konsumsi_bbm.numeric' => 'Konsumsi BBM harus berupa angka',
+            'jenis_bbm_id.required' => 'Jenis BBM wajib dipilih',
+        ]);        ;
 
         $bbm = JenisBBM::find($request->jenis_bbm_id);
 
@@ -97,7 +118,6 @@ class KonsumsiBBMController extends Controller
     {
         $data = Operasional::with('bbm')->findOrFail($id);
 
-       // ================= CO2 =================
     if ($data->co2 < 50) {
         $co2_status = 'Rendah';
         $co2_color = 'success';
@@ -108,8 +128,6 @@ class KonsumsiBBMController extends Controller
         $co2_status = 'Tinggi';
         $co2_color = 'danger';
     }
-
-    // ================= NOX =================
     if ($data->nox <= 3.4) {
         $nox_status = 'Sangat Baik';
         $nox_color = 'success';
@@ -120,8 +138,6 @@ class KonsumsiBBMController extends Controller
         $nox_status = 'Tinggi';
         $nox_color = 'danger';
     }
-
-    // ================= SOX =================
     if ($data->sox <= 0.001) {
         $sox_status = 'Sangat Bersih';
         $sox_color = 'success';
@@ -132,8 +148,6 @@ class KonsumsiBBMController extends Controller
         $sox_status = 'Tidak Sesuai';
         $sox_color = 'danger';
     }
-
-    // ================= CII =================
     if ($data->cii < 5) {
         $cii_status = 'A - Sangat Efisien';
         $cii_color = 'success';
@@ -172,7 +186,6 @@ class KonsumsiBBMController extends Controller
     {
         $data = Operasional::with('bbm')->findOrFail($id);
 
-        // ================= CO2 =================
         if ($data->co2 < 50) {
             $co2_status = 'Rendah';
             $co2_color = 'success';
@@ -184,7 +197,6 @@ class KonsumsiBBMController extends Controller
             $co2_color = 'danger';
         }
 
-        // ================= NOX =================
         if ($data->nox <= 3.4) {
             $nox_status = 'Sangat Baik';
             $nox_color = 'success';
@@ -196,7 +208,6 @@ class KonsumsiBBMController extends Controller
             $nox_color = 'danger';
         }
 
-        // ================= SOX =================
         if ($data->sox <= 0.001) {
             $sox_status = 'Sangat Bersih';
             $sox_color = 'success';
@@ -208,7 +219,6 @@ class KonsumsiBBMController extends Controller
             $sox_color = 'danger';
         }
 
-        // ================= CII =================
         if ($data->cii < 5) {
             $cii_status = 'A - Sangat Efisien';
             $cii_color = 'success';
@@ -226,7 +236,6 @@ class KonsumsiBBMController extends Controller
             $cii_color = 'dark';
         }
 
-        // ================= KESIMPULAN =================
         $overall = ($co2_color == 'success' &&
                     $nox_color == 'success' &&
                     $sox_color == 'success' &&
@@ -234,7 +243,6 @@ class KonsumsiBBMController extends Controller
             ? 'Kapal Ramah Lingkungan'
             : 'Perlu Evaluasi Operasional';
 
-        // ================= GENERATE PDF =================
         $pdf = PDF::loadView('bbm.pdf', compact(
             'data',
             'co2_status','co2_color',

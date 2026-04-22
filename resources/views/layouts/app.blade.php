@@ -38,7 +38,9 @@
 <script src="{{ url('assets/js/app.min.js') }}"></script>
 <script src="{{ url('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
 <script src="{{ url('assets/libs/simplebar/dist/simplebar.js') }}"></script>
+@if(request()->routeIs('dashboard'))
 <script src="{{ url('assets/js/dashboard.js') }}"></script>
+@endif
 <script >
      setTimeout(function () {
         document.querySelectorAll('.alert-auto-close').forEach(function(alert) {
