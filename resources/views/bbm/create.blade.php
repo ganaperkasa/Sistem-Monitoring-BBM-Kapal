@@ -38,7 +38,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Kapasitas Kapal</label>
+                <label class="form-label">Kapasitas Kapal (GT)</label>
                 <input type="number" name="kapasitas_kapal" value="{{ old('kapasitas_kapal') }}"class="form-control @error('kapasitas_kapal') is-invalid @enderror" required>
                 @error('kapasitas_kapal')
                         <div class="invalid-feedback">
@@ -61,7 +61,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">RPM</label>
+                <label class="form-label">Kecepatan Kapal (Rpm)</label>
                 <input type="number" name="rpm" value="{{ old('rpm') }}"class="form-control @error('rpm') is-invalid @enderror" required>
                 @error('rpm')
                         <div class="invalid-feedback">

@@ -21,12 +21,12 @@
                         <tr>
                             <th>Jenis Kapal</th>
                             <th>Tahun Kapal</th>
-                            <th>Kapasitas Kapal</th>
+                            <th>Kapasitas Kapal (GT)</th>
                             <th>Kecepatan Kapal (Rpm)</th>
-                            <th>Daya Mesin</th>
-                            <th>Lama Operasi</th>
-                            <th>Jarak Tempuh</th>
-                            <th>Konsumsi BBM</th>
+                            <th>Daya Mesin (kW)</th>
+                            <th>Lama Operasi(Jam)</th>
+                            <th>Jarak Tempuh (NM)</th>
+                            <th>Konsumsi BBM (Ton)</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>

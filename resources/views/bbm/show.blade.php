@@ -21,11 +21,11 @@
                         {{ $data->jenis_kapal }}
                     </div>
                     <div class="col-lg-4 col-md-6 col-12 mb-2">
-                        <strong>Tahun</strong><br>
+                        <strong>Tahun Kapal</strong><br>
                         {{ $data->tahun_kapal }}
                     </div>
                     <div class="col-lg-4 col-md-6 col-12 mb-2">
-                        <strong>Kapasitas</strong><br>
+                        <strong>Kapasitas Kapal (GT)</strong><br>
                         {{ $data->kapasitas_kapal }}
                     </div>
                 </div>
@@ -34,23 +34,23 @@
                 <h6 class="mb-3">Data Operasional</h6>
                 <div class="row mb-4">
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
-                        <strong>RPM</strong><br>
+                        <strong>Kecepatan Kapal (Rpm)</strong><br>
                         {{ $data->rpm }}
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
-                        <strong>Daya Mesin</strong><br>
+                        <strong>Daya Mesin (kW)</strong><br>
                         {{ $data->daya_mesin }}
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
-                        <strong>Lama Operasi</strong><br>
+                        <strong>Lama Operasi (jam)</strong><br>
                         {{ $data->lama_operasi }}
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
-                        <strong>Jarak</strong><br>
+                        <strong>Jarak Tempuh (NM)</strong><br>
                         {{ $data->jarak_tempuh }}
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
-                        <strong>Konsumsi BBM</strong><br>
+                        <strong>Konsumsi BBM (Ton)</strong><br>
                         {{ $data->konsumsi_bbm }}
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
@@ -67,7 +67,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>CO₂</h6>
-                                <h5>{{ $data->co2 }}</h5>
+                                <h5>{{ $data->co2 }} g/kWh</h5>
                                 <span class="badge bg-{{ $co2_color }}">{{ $co2_status }}</span>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>NOx</h6>
-                                <h5>{{ $data->nox }}</h5>
+                                <h5>{{ $data->nox }} g/kWh</h5>
                                 <span class="badge bg-{{ $nox_color }}">{{ $nox_status }}</span>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>SOx</h6>
-                                <h5>{{ $data->sox }}</h5>
+                                <h5>{{ $data->sox }} % sulfur</h5>
                                 <span class="badge bg-{{ $sox_color }}">{{ $sox_status }}</span>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>CII</h6>
-                                <h5>{{ $data->cii }}</h5>
+                                <h5>{{ $data->cii }} gCO₂/ton·NM</h5>
                                 <span class="badge bg-{{ $cii_color }}">{{ $cii_status }}</span>
                             </div>
                         </div>

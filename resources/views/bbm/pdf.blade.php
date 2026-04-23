@@ -74,12 +74,12 @@
                 <td>{{ $data->jenis_kapal }}</td>
             </tr>
             <tr>
-                <td>Tahun</td>
+                <td>Tahun Kapal</td>
                 <td>{{ $data->tahun_kapal }}</td>
             </tr>
             <tr>
-                <td>Kapasitas</td>
-                <td>{{ $data->kapasitas_kapal }}</td>
+                <td>Kapasitas Kapal </td>
+                <td>{{ $data->kapasitas_kapal }} GT</td>
             </tr>
         </table>
     </div>
@@ -89,20 +89,20 @@
         <h3>Data Operasional</h3>
         <table>
             <tr>
-                <td>RPM</td>
-                <td>{{ $data->rpm }}</td>
-                <td>Daya Mesin</td>
-                <td>{{ $data->daya_mesin }}</td>
+                <td>Kecepatan Kapal </td>
+                <td>{{ $data->rpm }} Rpm</td>
+                <td>Daya Mesin </td>
+                <td>{{ $data->daya_mesin }} kW</td>
             </tr>
             <tr>
-                <td>Lama Operasi</td>
-                <td>{{ $data->lama_operasi }}</td>
-                <td>Jarak</td>
-                <td>{{ $data->jarak_tempuh }}</td>
+                <td>Lama Operasi </td>
+                <td>{{ $data->lama_operasi }} Jam</td>
+                <td>Jarak Tempuh </td>
+                <td>{{ $data->jarak_tempuh }} Nautical Mile</td>
             </tr>
             <tr>
-                <td>Konsumsi BBM</td>
-                <td>{{ $data->konsumsi_bbm }}</td>
+                <td>Konsumsi BBM </td>
+                <td>{{ $data->konsumsi_bbm }} Ton</td>
                 <td>Jenis BBM</td>
                 <td>{{ $data->bbm->jenis_bbm ?? '-' }}</td>
             </tr>
