@@ -29,17 +29,17 @@
 </div>
 
 
-<script src="{{ url('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
 
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
-<script src="{{ url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ url('assets/js/sidebarmenu.js') }}"></script>
-<script src="{{ url('assets/js/app.min.js') }}"></script>
-<script src="{{ url('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
-<script src="{{ url('assets/libs/simplebar/dist/simplebar.js') }}"></script>
+<script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
+<script src="{{ asset('assets/js/app.min.js') }}"></script>
+<script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/libs/simplebar/dist/simplebar.js') }}"></script>
 @if(request()->routeIs('dashboard'))
-<script src="{{ url('assets/js/dashboard.js') }}"></script>
+<script src="{{ asset('assets/js/dashboard.js') }}"></script>
 @endif
 <script >
      setTimeout(function () {
