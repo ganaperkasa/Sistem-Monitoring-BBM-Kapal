@@ -12,7 +12,7 @@ use App\Http\Controllers\JenisBBMController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::post('/proses-login', [LoginController::class, 'login'])->name('login.post');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
