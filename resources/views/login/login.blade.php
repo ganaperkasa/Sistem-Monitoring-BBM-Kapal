@@ -9,7 +9,7 @@
                     <div class="card-body">
 
                         <a class="text-nowrap logo-img text-center d-block py-3 w-100">
-                            <img src="{{ 'assets/images/logos/logopoltekpel.png' }}" width="100" alt="">
+                            <img src="{{ asset('assets/images/logos/logopoltekpel.png') }}" width="100" alt="">
                         </a>
                         <p class="text-center mb-1 fw-bold">Sistem Monitoring BBM Kapal</p>
                         <p class="text-center text-muted mb-4" style="font-size: 13px;">
