@@ -135,7 +135,7 @@
             </tr>
             <tr>
                 <td>CII</td>
-                <td>{{ $data->cii }} gCO₂/ton·NM</td>
+                <td>{{ $data->cii }} gCO2/ton·NM</td>
                 <td><span class="badge {{ $cii_color }}">{{ $cii_status }}</span></td>
             </tr>
         </table>
