@@ -34,7 +34,7 @@
                 <h6 class="mb-3">Data Operasional</h6>
                 <div class="row mb-4">
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
-                        <strong>Kecepatan Kapal (Rpm)</strong><br>
+                        <strong>Kecepatan Kapal (Knot)</strong><br>
                         {{ $data->rpm }}
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-2">

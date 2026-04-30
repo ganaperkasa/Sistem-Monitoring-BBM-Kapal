@@ -23,7 +23,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Jenis Kapal</label>
-                <input type="text" name="jenis_kapal" value="{{ old('jenis_kapal') }}"class="form-control @error('jenis_kapal') is-invalid @enderror" required>
+                <input type="text" name="jenis_kapal" value="{{ old('jenis_kapal') }}"class="form-control @error('jenis_kapal') is-invalid @enderror" placeholder="(Cth: Ferry, Cargo, Tanker, dll)" required>
                 @error('jenis_kapal')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -65,7 +65,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Kecepatan Kapal (Rpm)</label>
+                <label class="form-label">Kecepatan Kapal (Knot)</label>
                 <input type="number" name="rpm" value="{{ old('rpm') }}"class="form-control @error('rpm') is-invalid @enderror" required>
                 @error('rpm')
                         <div class="invalid-feedback">

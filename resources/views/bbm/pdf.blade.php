@@ -5,7 +5,7 @@
     <title>Laporan Emisi Kapal</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: DejaVu Sans, sans-serif;
             font-size: 12px;
         }
 
@@ -90,7 +90,7 @@
         <table>
             <tr>
                 <td>Kecepatan Kapal </td>
-                <td>{{ $data->rpm }} Rpm</td>
+                <td>{{ $data->rpm }} Knot</td>
                 <td>Daya Mesin </td>
                 <td>{{ $data->daya_mesin }} kW</td>
             </tr>
@@ -139,6 +139,12 @@
                 <td><span class="badge {{ $cii_color }}">{{ $cii_status }}</span></td>
             </tr>
         </table>
+    </div>
+    <div class="section">
+        <h3>Standar IMO ({{ $tier }})</h3>
+        <ul>
+            <li><strong>{{ $tier }}:</strong> {!! $tierData[$tier] !!}</li>
+        </ul>
     </div>
 
     {{-- ================= REKOMENDASI ================= --}}

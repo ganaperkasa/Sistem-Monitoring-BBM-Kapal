@@ -258,10 +258,18 @@ class KonsumsiBBMController extends Controller
             $cii_status = 'E - Sangat Buruk';
             $cii_color = 'dark';
         }
+        $isECA = true;
+
+        $tier = $this->getTier($data->tahun_kapal, $isECA);
+        $tierData = [
+    'Tier I' => 'CO2 ≤ 17.0 g/kWh, NOx ≤ 14.4 g/kWh, SOx ≤ 3.5% sulfur',
+    'Tier II' => 'CO2 ≤ 16.0 g/kWh, NOx ≤ 9.7 g/kWh, SOx ≤ 0.5% sulfur',
+    'Tier III' => 'CO2 ≤ 15.0 g/kWh, NOx ≤ 3.4 g/kWh, SOx ≤ 0.1% sulfur',
+];
 
         $overall = $co2_color == 'success' && $nox_color == 'success' && $sox_color == 'success' && $cii_color == 'success' ? 'Kapal Ramah Lingkungan' : 'Perlu Evaluasi Operasional';
 
-        $pdf = PDF::loadView('bbm.pdf', compact('data', 'co2_status', 'co2_color', 'nox_status', 'nox_color', 'sox_status', 'sox_color', 'cii_status', 'cii_color', 'overall'));
+        $pdf = PDF::loadView('bbm.pdf', compact('data', 'co2_status', 'co2_color', 'nox_status', 'nox_color', 'sox_status', 'sox_color', 'cii_status', 'cii_color', 'overall', 'tier', 'tierData'));
 
         return $pdf->download('laporan-emisi.pdf');
     }

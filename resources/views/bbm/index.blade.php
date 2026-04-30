@@ -22,7 +22,7 @@
                             <th>Jenis Kapal</th>
                             <th>Tahun Kapal</th>
                             <th>Kapasitas Kapal (GT)</th>
-                            <th>Kecepatan Kapal (Rpm)</th>
+                            <th>Kecepatan Kapal (Knot)</th>
                             <th>Daya Mesin (kW)</th>
                             <th>Lama Operasi(Jam)</th>
                             <th>Jarak Tempuh (NM)</th>
