@@ -9,7 +9,11 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+@elseif (session('success'))
+        <div class="alert alert-success alert-auto-close show" role="alert">
+            <strong>Sukses!</strong> {{ session('success') }}
+        </div>
+@endif
 <div class="card">
     <div class="card-body">
         <h5 class="card-title fw-semibold mb-4">Input Data Operasional Kapal</h5>
@@ -124,7 +128,7 @@
             <div class="mb-3">
 
             <button class="btn btn-primary">Simpan & Hitung</button>
-            <a href="{{ route('operasional.') }}" class="btn btn-danger">Batal</a>
+            {{-- <a href="{{ route('operasional.') }}" class="btn btn-danger">Batal</a> --}}
             </div>
         </form>
     </div>

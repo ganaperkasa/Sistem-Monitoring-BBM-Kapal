@@ -28,9 +28,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [KonsumsiBBMController::class, 'create'])->name('dashboard.create');
 
     // Konsumsi BBM (alias halaman utama user)
     Route::get('/konsumsi-bbm', [KonsumsiBBMController::class, 'index'])->name('konsumsi-bbm');
+    Route::get('/history', [KonsumsiBBMController::class, 'history'])->name('history');
 
     // Operasional
     Route::prefix('operasional')->name('operasional.')->group(function () {
@@ -40,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/data', [KonsumsiBBMController::class, 'data'])->name('data');
         Route::get('/{id}', [KonsumsiBBMController::class, 'show'])->name('show');
         Route::get('/{id}/pdf', [KonsumsiBBMController::class, 'cetakPdf'])->name('pdf');
+
     });
 
     // Jenis BBM

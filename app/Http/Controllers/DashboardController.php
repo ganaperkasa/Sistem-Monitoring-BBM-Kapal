@@ -30,4 +30,6 @@ class DashboardController extends Controller
         'recent' => $data->latest()->take(5)->get()
     ]);
     }
+
+    
 }

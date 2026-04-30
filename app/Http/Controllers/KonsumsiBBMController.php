@@ -20,6 +20,11 @@ class KonsumsiBBMController extends Controller
         // dd(Auth::id());
         return view('bbm/index');
     }
+
+    public function history()
+    {
+        return view('bbm/history');
+    }
     public function create()
     {
         $bbm = JenisBBM::all();
@@ -108,7 +113,7 @@ class KonsumsiBBMController extends Controller
         ]);
 
 
-        return redirect()->route('operasional.')->with('success', 'Data berhasil disimpan & dihitung');
+        return redirect()->route('dashboard.create')->with('success', 'Data berhasil disimpan & dihitung');
     }
     function getTier($tahun, $isECA = false)
     {
