@@ -26,7 +26,7 @@
               </a>
             </li> --}}
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{ route('operasional.create') }}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ route('dashboard.create') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -41,7 +41,77 @@
                 <span class="hide-menu">History</span>
               </a>
             </li>
-            <li class="nav-small-cap">
+            <li class="sidebar-item">
+  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+    <span>
+      <i class="ti ti-info-circle"></i>
+    </span>
+    <span class="hide-menu"> Wilayah ECA & Non ECA</span>
+  </a>
+
+  <ul aria-expanded="false" class="collapse first-level">
+    <li class="sidebar-item">
+      <span class="sidebar-link small"
+      style="
+        display: block;
+        max-width: 220px;
+        max-height: 250px;
+        overflow-y: auto;
+        white-space: normal;
+        line-height: 1.4;
+        cursor: default;
+      ">
+
+  <strong>ECA:</strong> Laut Baltik, Laut Utara, Perairan sekitar United States, Laut Mediterania <br>
+  <strong>Non ECA:</strong> Perairan Indo, Laut Cina Selatan, Samudra Hindia, Timur Tengah, Afrika, Sebagian Besar Asia Tenggara
+
+
+</span>
+    </li>
+  </ul>
+</li>
+
+<li class="sidebar-item">
+  <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+    <span>
+      <i class="ti ti-info-circle"></i>
+    </span>
+    <span class="hide-menu">Tier IMO</span>
+  </a>
+
+  <ul aria-expanded="false" class="collapse first-level">
+    <li class="sidebar-item">
+      <span class="sidebar-link small"
+      style="
+        display: block;
+        max-width: 220px;
+        max-height: 350px;
+        overflow-y: auto;
+        white-space: normal;
+        line-height: 1.4;
+        cursor: default;
+      ">
+{{--
+  <strong>ECA:</strong> Baltic, North, US Coast, Caribbean, Mediterranean, Arctic<br>
+  <strong>Non ECA:</strong> Semua laut di luar ECA<br> --}}
+  <strong>Tier I:</strong> (dibangun &lt; 1 Januari 2000) Standar awal<br>
+  <strong>Tier II:</strong> (dibangun 1 Januari 2000–2015) Penurunan NOx 20%<br>
+  <strong>Tier III:</strong> (dibangun &gt;2016 ) Penurunan NOx 80% (hanya berlaku di ECA) <br>
+  <strong>Penting:</strong> Diluar area ECA, Kapal Tier III tetap harus memenuhi standar Tier II<br>
+
+</span>
+    </li>
+  </ul>
+</li>
+            {{-- <li class="sidebar-item">
+              <a class="sidebar-link" href="{{ url('history') }}" aria-expanded="false">
+                <span>
+                  <i class="ti ti-anchor"></i>
+                </span>
+                <span class="hide-menu">History</span>
+              </a>
+            </li> --}}
+            {{-- <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Master</span>
             </li>
@@ -52,7 +122,7 @@
                 </span>
                 <span class="hide-menu">Konsumsi BBM</span>
               </a>
-            </li>
+            </li> --}}
             @if(Auth::user()->role_id == 1)
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{ url('jenis-bbm') }}" aria-expanded="false">
