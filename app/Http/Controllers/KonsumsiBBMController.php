@@ -89,7 +89,7 @@ class KonsumsiBBMController extends Controller
         $co2 = $request->konsumsi_bbm * $bbm->faktor_emisi;
         $sox = 2 * $bbm->sulfur * $request->konsumsi_bbm;
 
-        $rpm = $request->rpm;
+        $rpm = $request->kecepatan_knot * 35;
         if ($tier == 'Tier I') {
             $k = 45;
         } elseif ($tier == 'Tier II') {
