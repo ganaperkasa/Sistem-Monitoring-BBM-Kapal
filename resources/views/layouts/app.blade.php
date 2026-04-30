@@ -38,7 +38,7 @@
 <script src="{{ asset('assets/js/app.min.js') }}"></script>
 <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
 <script src="{{ asset('assets/libs/simplebar/dist/simplebar.js') }}"></script>
-@if(request()->routeIs('dashboard'))
+@if(request()->routeIs('history'))
 <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 @endif
 <script >
