@@ -1,4 +1,4 @@
-@extends('layouts.register')
+@extends('layouts.forgot')
 
 @section('content')
     <div class="d-flex align-items-center justify-content-center w-100">
@@ -10,7 +10,7 @@
                             <img src="{{ 'assets/images/logos/logopoltekpel.png' }}" width="100" alt="">
                         </a>
                         <p class="text-center mb-4">Automatic CII Calculation System</p>
-                        <form method="POST" action="{{ route('register.store') }}">
+                        <form method="POST" action="">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Name</label>

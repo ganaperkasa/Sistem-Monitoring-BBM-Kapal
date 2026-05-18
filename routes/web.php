@@ -18,6 +18,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [LoginController::class, 'register'])->name('register.store');
 
+Route::get('/forgot-password', [LoginController::class, 'showforgotPassword'])->name('forgot-password');
+
 
 /*
 |--------------------------------------------------------------------------

@@ -45,9 +45,9 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <a class="text-primary fw-bold" href="#">Forgot Password ?</a>
-                            </div>
+                            {{-- <div class="d-flex align-items-center justify-content-between mb-4">
+                                <a class="text-primary fw-bold" href="{{ route('forgot-password') }}">Forgot Password ?</a>
+                            </div> --}}
 
                             <button type="submit" class="btn btn-primary w-100 py-2 fs-5 mb-3 rounded-2">
                                 Sign In
