@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KonsumsiBBMController;
 use App\Http\Controllers\JenisBBMController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [LoginController::class, 'register'])->name('register.store');
 
-Route::get('/forgot-password', [LoginController::class, 'showforgotPassword'])->name('forgot-password');
+// Route::get('/forgot-password', [LoginController::class, 'showforgotPassword'])->name('forgot-password');
+
 
 
 /*
@@ -31,6 +33,9 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [KonsumsiBBMController::class, 'create'])->name('dashboard.create');
+    Route::get('/profile', [LoginController::class, 'showProfile'])->name('profile');
+    Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/password/update', [AuthController::class, 'updatePassword'])->name('password.update.manual');
 
     // Konsumsi BBM (alias halaman utama user)
     Route::get('/konsumsi-bbm', [KonsumsiBBMController::class, 'index'])->name('konsumsi-bbm');

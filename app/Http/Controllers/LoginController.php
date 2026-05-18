@@ -60,8 +60,9 @@ class LoginController extends Controller
         return redirect()->route('login')->with('success', 'Registrasi berhasil!');
     }
 
-    public function showforgotPassword()
+    public function showProfile()
     {
-        return view('login/forgot');
+        
+        return view('login/profile');
     }
 }
