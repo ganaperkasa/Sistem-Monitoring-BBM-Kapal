@@ -62,7 +62,12 @@ class LoginController extends Controller
 
     public function showProfile()
     {
-        
+
         return view('login/profile');
+    }
+
+    public function test()
+    {
+        return view('login/test');
     }
 }

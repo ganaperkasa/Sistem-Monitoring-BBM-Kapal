@@ -66,7 +66,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Kecepatan Kapal (Knot)</label>
-                <input type="number" name="rpm" value="{{ old('rpm') }}"class="form-control @error('rpm') is-invalid @enderror" required>
+                <input type="number" id="rpm" name="rpm" value="{{ old('rpm') }}"class="form-control @error('rpm') is-invalid @enderror" required>
                 @error('rpm')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -76,7 +76,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Daya Mesin (kW)</label>
-                <input type="number" step="0.01" name="daya_mesin" value="{{ old('daya_mesin') }}"class="form-control @error('daya_mesin') is-invalid @enderror" required>
+                <input type="number" id="daya_mesin" step="0.01" name="daya_mesin" value="{{ old('daya_mesin') }}"class="form-control @error('daya_mesin') is-invalid @enderror" required>
                 @error('daya_mesin')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -85,33 +85,24 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Lama Operasi (Jam)</label>
-                <input type="number" step="0.01" name="lama_operasi" value="{{ old('lama_operasi') }}"class="form-control @error('lama_operasi') is-invalid @enderror" required>
-                @error('lama_operasi')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-            </div>
-
-            <div class="mb-3">
                 <label class="form-label">Jarak Tempuh (NM)</label>
-                <input type="number" name="jarak_tempuh" value="{{ old('jarak_tempuh') }}"class="form-control @error('jarak_tempuh') is-invalid @enderror" required>
+                <input type="number"id="jarak_tempuh" name="jarak_tempuh" value="{{ old('jarak_tempuh') }}"class="form-control @error('jarak_tempuh') is-invalid @enderror" required>
                 @error('jarak_tempuh')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
             </div>
+            <div class="mb-3">
+                <label class="form-label">Lama Operasi (Jam)</label>
+                <input type="number" id="lama_operasi" class="form-control" readonly>
+
+            </div>
 
             <div class="mb-3">
-                <label class="form-label">Konsumsi BBM (Ton)</label>
-                <input type="number"  name="konsumsi_bbm" value="{{ old('konsumsi_bbm') }}"class="form-control @error('konsumsi_bbm') is-invalid @enderror" required>
-                @error('konsumsi_bbm')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                <label class="form-label">Konsumsi BBM (Liter)</label>
+                <input type="number" id="konsumsi_bbm" name="konsumsi_bbm" class="form-control" readonly>
+
             </div>
 
             <div class="mb-3">
@@ -135,14 +126,50 @@
 </div>
 
 <script>
+document.getElementById('tahun_kapal').addEventListener('input', hitungTier);
+document.getElementById('area').addEventListener('change', hitungTier);
+
+document.getElementById('jarak_tempuh').addEventListener('input', hitungSemua);
+document.getElementById('rpm').addEventListener('input', hitungSemua);
+document.getElementById('daya_mesin').addEventListener('input', hitungSemua);
+
+function hitungSemua() {
+    hitungLamaOperasi();
+    hitungKonsumsiBBM();
+}
+
+
+function hitungLamaOperasi() {
+    let jarak = parseFloat(document.getElementById('jarak_tempuh').value);
+    let kecepatan = parseFloat(document.getElementById('rpm').value);
+
+    if (!isNaN(jarak) && !isNaN(kecepatan) && kecepatan > 0) {
+        let hasil = jarak / kecepatan;
+        document.getElementById('lama_operasi').value = hasil.toFixed(2);
+    } else {
+        document.getElementById('lama_operasi').value = '';
+    }
+}
+
+function hitungKonsumsiBBM() {
+    let daya = parseFloat(document.getElementById('daya_mesin').value);
+    let lama = parseFloat(document.getElementById('lama_operasi').value);
+
+    if (!isNaN(daya) && !isNaN(lama)) {
+        let bbm = (daya * lama * 0.2) / 0.85;
+        document.getElementById('konsumsi_bbm').value = bbm.toFixed(2);
+    } else {
+        document.getElementById('konsumsi_bbm').value = '';
+    }
+}
 function hitungTier() {
     let tahun = parseInt(document.getElementById('tahun_kapal').value);
     let area = document.getElementById('area').value;
     let tier = '';
 
-    if (tahun < 2011) {
+    if (tahun < 2000) {
         tier = 'Tier I';
-    } else if (tahun >= 2011 && tahun < 2016) {
+    } else if (tahun >= 2000 && tahun < 2016) {
         tier = 'Tier II';
     } else {
         tier = (area === 'eca') ? 'Tier III' : 'Tier II';
@@ -151,8 +178,6 @@ function hitungTier() {
     document.getElementById('tier').value = tier;
 }
 
-document.getElementById('tahun_kapal').addEventListener('input', hitungTier);
-document.getElementById('area').addEventListener('change', hitungTier);
 </script>
 
 @endsection

@@ -26,7 +26,7 @@
                             <th>Daya Mesin (kW)</th>
                             <th>Lama Operasi(Jam)</th>
                             <th>Jarak Tempuh (NM)</th>
-                            <th>Konsumsi BBM (Ton)</th>
+                            <th>Konsumsi BBM (Liter)</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>

@@ -54,7 +54,6 @@ class KonsumsiBBMController extends Controller
                 'kapasitas_kapal' => 'required|numeric|min:1',
                 'rpm' => 'required|numeric',
                 'daya_mesin' => 'required|numeric',
-                'lama_operasi' => 'required|numeric',
                 'jarak_tempuh' => 'required|numeric',
                 'konsumsi_bbm' => 'required|numeric',
                 'jenis_bbm_id' => 'required',
@@ -73,23 +72,29 @@ class KonsumsiBBMController extends Controller
                 'rpm.numeric' => 'RPM harus berupa angka',
                 'daya_mesin.required' => 'Daya mesin wajib diisi',
                 'daya_mesin.numeric' => 'Daya mesin harus berupa angka',
-                'lama_operasi.required' => 'Lama operasi wajib diisi',
-                'lama_operasi.numeric' => 'Lama operasi harus berupa angka',
                 'jarak_tempuh.required' => 'Jarak tempuh wajib diisi',
                 'jarak_tempuh.numeric' => 'Jarak tempuh harus berupa angka',
-                'konsumsi_bbm.required' => 'Konsumsi BBM wajib diisi',
-                'konsumsi_bbm.numeric' => 'Konsumsi BBM harus berupa angka',
                 'jenis_bbm_id.required' => 'Jenis BBM wajib dipilih',
             ],
         );
 
+        $lama_operasi = $this->hitungLamaOperasi($request->jarak_tempuh, $request->rpm);
+        $konsumsi_bbm = $this->hitungKonsumsiBBM($request->daya_mesin, $lama_operasi);
+        $konsumsi_bbm_liter = $konsumsi_bbm / 0.85;
         $bbm = JenisBBM::find($request->jenis_bbm_id);
 
         $tier = $this->getTier($request->tahun_kapal, false);
-        $co2 = $request->konsumsi_bbm * $bbm->faktor_emisi;
-        $sox = 2 * $bbm->sulfur * $request->konsumsi_bbm;
+        $co2 = $konsumsi_bbm * $bbm->faktor_emisi;
+        $sox = 2 * $bbm->sulfur * $konsumsi_bbm;
 
-        $rpm = $request->kecepatan_knot * 35;
+        $kecepatan = $request->rpm;
+        if ($kecepatan <= 10) {
+            $rpm = 100;
+        } elseif ($kecepatan <= 20) {
+            $rpm = 500;
+        } else {
+            $rpm = 1000;
+        }
         if ($tier == 'Tier I') {
             $k = 45;
         } elseif ($tier == 'Tier II') {
@@ -106,8 +111,9 @@ class KonsumsiBBMController extends Controller
             $ef_nox = 9.8;
         }
 
-        $nox = ($ef_nox * $request->daya_mesin * $request->lama_operasi) / 1000;
-        $cii = $co2 / ($request->jarak_tempuh * $request->kapasitas_kapal);
+        $nox = ($ef_nox * $request->daya_mesin * $lama_operasi) / 1000;
+        $dwt = $request->kapasitas_kapal * 1.5;
+        $cii = round(($co2 * 1000) / ($request->jarak_tempuh * $dwt), 2);
 
         Operasional::create([
             'user_id' => auth()->id(),
@@ -118,9 +124,9 @@ class KonsumsiBBMController extends Controller
             'tier' => $tier,
             'rpm' => $request->rpm,
             'daya_mesin' => $request->daya_mesin,
-            'lama_operasi' => $request->lama_operasi,
+            'lama_operasi' => $lama_operasi,
             'jarak_tempuh' => $request->jarak_tempuh,
-            'konsumsi_bbm' => $request->konsumsi_bbm,
+            'konsumsi_bbm' => $konsumsi_bbm,
             'jenis_bbm_id' => $request->jenis_bbm_id,
 
             'co2' => $co2,
@@ -133,13 +139,31 @@ class KonsumsiBBMController extends Controller
     }
     function getTier($tahun, $isECA = false)
     {
-        if ($tahun < 2011) {
+        if ($tahun < 2000) {
             return 'Tier I';
-        } elseif ($tahun >= 2011 && $tahun < 2016) {
+        } elseif ($tahun >= 2000 && $tahun < 2016) {
             return 'Tier II';
         } else {
             return $isECA ? 'Tier III' : 'Tier II';
         }
+    }
+
+    private function hitungLamaOperasi($jarak_tempuh, $rpm)
+    {
+        if ($rpm > 0) {
+            return $jarak_tempuh / $rpm;
+        }
+
+        return 0;
+    }
+
+    private function hitungKonsumsiBBM($daya_mesin, $lama_operasi)
+    {
+        if ($daya_mesin > 0 && $lama_operasi > 0) {
+            return $daya_mesin * $lama_operasi * 0.2;
+        }
+
+        return 0;
     }
     public function show($id)
     {
@@ -149,30 +173,36 @@ class KonsumsiBBMController extends Controller
             $data = Operasional::with('bbm')->where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         }
 
-        if ($data->co2 < 50) {
+        $co2_ton = $data->co2 / 1000;
+        $nox_ton = $data->nox / 1000;
+        $sox_ton = $data->sox / 1000;
+        $bbm = JenisBBM::find($data->jenis_bbm_id);
+        $sulfur = $bbm->sulfur;
+
+        if ($co2_ton < 50) {
             $co2_status = 'Rendah';
             $co2_color = 'success';
-        } elseif ($data->co2 <= 150) {
+        } elseif ($co2_ton <= 150) {
             $co2_status = 'Sedang';
             $co2_color = 'warning';
         } else {
             $co2_status = 'Tinggi';
             $co2_color = 'danger';
         }
-        if ($data->nox <= 3.4) {
+        if ($nox_ton <= 3.4) {
             $nox_status = 'Sangat Baik';
             $nox_color = 'success';
-        } elseif ($data->nox <= 14.4) {
+        } elseif ($nox_ton <= 14.4) {
             $nox_status = 'Normal';
             $nox_color = 'warning';
         } else {
             $nox_status = 'Tinggi';
             $nox_color = 'danger';
         }
-        if ($data->sox <= 0.001) {
+        if ($sulfur <= 0.001) {
             $sox_status = 'Sangat Bersih';
             $sox_color = 'success';
-        } elseif ($data->sox <= 0.005) {
+        } elseif ($sulfur <= 0.005) {
             $sox_status = 'Sesuai IMO';
             $sox_color = 'warning';
         } else {
@@ -209,39 +239,42 @@ class KonsumsiBBMController extends Controller
             $data = Operasional::with('bbm')->where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         }
 
-        if ($data->co2 < 50) {
+        $co2_ton = $data->co2 / 1000;
+        $nox_ton = $data->nox / 1000;
+        $sox_ton = $data->sox / 1000;
+        $bbm = JenisBBM::find($data->jenis_bbm_id);
+        $sulfur = $bbm->sulfur;
+
+        if ($co2_ton < 50) {
             $co2_status = 'Rendah';
             $co2_color = 'success';
-        } elseif ($data->co2 <= 150) {
+        } elseif ($co2_ton <= 150) {
             $co2_status = 'Sedang';
             $co2_color = 'warning';
         } else {
             $co2_status = 'Tinggi';
             $co2_color = 'danger';
         }
-
-        if ($data->nox <= 3.4) {
+        if ($nox_ton <= 3.4) {
             $nox_status = 'Sangat Baik';
             $nox_color = 'success';
-        } elseif ($data->nox <= 14.4) {
+        } elseif ($nox_ton <= 14.4) {
             $nox_status = 'Normal';
             $nox_color = 'warning';
         } else {
             $nox_status = 'Tinggi';
             $nox_color = 'danger';
         }
-
-        if ($data->sox <= 0.001) {
+        if ($sulfur <= 0.001) {
             $sox_status = 'Sangat Bersih';
             $sox_color = 'success';
-        } elseif ($data->sox <= 0.005) {
+        } elseif ($sulfur <= 0.005) {
             $sox_status = 'Sesuai IMO';
             $sox_color = 'warning';
         } else {
             $sox_status = 'Tidak Sesuai';
             $sox_color = 'danger';
         }
-
         if ($data->cii < 5) {
             $cii_status = 'A - Sangat Efisien';
             $cii_color = 'success';
@@ -258,14 +291,14 @@ class KonsumsiBBMController extends Controller
             $cii_status = 'E - Sangat Buruk';
             $cii_color = 'dark';
         }
-        $isECA = true;
+        $isECA = false;
 
         $tier = $this->getTier($data->tahun_kapal, $isECA);
         $tierData = [
-    'Tier I' => 'CO2 ≤ 17.0 g/kWh, NOx ≤ 14.4 g/kWh, SOx ≤ 3.5% sulfur',
-    'Tier II' => 'CO2 ≤ 16.0 g/kWh, NOx ≤ 9.7 g/kWh, SOx ≤ 0.5% sulfur',
-    'Tier III' => 'CO2 ≤ 15.0 g/kWh, NOx ≤ 3.4 g/kWh, SOx ≤ 0.1% sulfur',
-];
+            'Tier I' => 'CO2 ≤ 17.0 g/kWh, NOx ≤ 14.4 g/kWh, SOx ≤ 3.5% sulfur',
+            'Tier II' => 'CO2 ≤ 16.0 g/kWh, NOx ≤ 9.7 g/kWh, SOx ≤ 0.5% sulfur',
+            'Tier III' => 'CO2 ≤ 15.0 g/kWh, NOx ≤ 3.4 g/kWh, SOx ≤ 0.1% sulfur',
+        ];
 
         $overall = $co2_color == 'success' && $nox_color == 'success' && $sox_color == 'success' && $cii_color == 'success' ? 'Kapal Ramah Lingkungan' : 'Perlu Evaluasi Operasional';
 
@@ -277,9 +310,9 @@ class KonsumsiBBMController extends Controller
     public function data()
     {
         if (Auth::user()->role == 'admin') {
-            $query = Operasional::with('bbm')->select('operationals.*');
+            $query = Operasional::with('bbm')->orderBy('created_at', 'desc')->select('operationals.*');
         } else {
-            $query = Operasional::with('bbm')->where('user_id', Auth::id())->select('operationals.*');
+            $query = Operasional::with('bbm')->where('user_id', Auth::id())->orderBy('created_at', 'desc')->select('operationals.*');
         }
 
         return DataTables::of($query)

@@ -50,7 +50,7 @@
                         {{ $data->jarak_tempuh }}
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
-                        <strong>Konsumsi BBM (Ton)</strong><br>
+                        <strong>Konsumsi BBM (Liter)</strong><br>
                         {{ $data->konsumsi_bbm }}
                     </div>
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
@@ -67,7 +67,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>CO₂</h6>
-                                <h5>{{ $data->co2 }} g/kWh</h5>
+                                <h5>{{ round($data->co2) }} Kg CO₂</h5>
                                 <span class="badge bg-{{ $co2_color }}">{{ $co2_status }}</span>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>NOx</h6>
-                                <h5>{{ $data->nox }} g/kWh</h5>
+                                <h5> {{ round( $data->nox) }} Kg</h5>
                                 <span class="badge bg-{{ $nox_color }}">{{ $nox_status }}</span>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>SOx</h6>
-                                <h5>{{ $data->sox }} % sulfur</h5>
+                                <h5>{{ round($data->sox) }} Kg</h5>
                                 <span class="badge bg-{{ $sox_color }}">{{ $sox_status }}</span>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>CII</h6>
-                                <h5>{{ $data->cii }} gCO₂/ton·NM</h5>
+                                <h5>{{ number_format($data->cii, 2) }} gCO₂/ton·NM</h5>
                                 <span class="badge bg-{{ $cii_color }}">{{ $cii_status }}</span>
                             </div>
                         </div>

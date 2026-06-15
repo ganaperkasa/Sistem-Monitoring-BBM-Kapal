@@ -102,7 +102,7 @@
             </tr>
             <tr>
                 <td>Konsumsi BBM </td>
-                <td>{{ $data->konsumsi_bbm }} Ton</td>
+                <td>{{ $data->konsumsi_bbm }} Liter</td>
                 <td>Jenis BBM</td>
                 <td>{{ $data->bbm->jenis_bbm ?? '-' }}</td>
             </tr>
