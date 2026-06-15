@@ -295,9 +295,9 @@ class KonsumsiBBMController extends Controller
 
         $tier = $this->getTier($data->tahun_kapal, $isECA);
         $tierData = [
-            'Tier I' => 'CO2 ≤ 17.0 g/kWh, NOx ≤ 14.4 g/kWh, SOx ≤ 3.5% sulfur',
-            'Tier II' => 'CO2 ≤ 16.0 g/kWh, NOx ≤ 9.7 g/kWh, SOx ≤ 0.5% sulfur',
-            'Tier III' => 'CO2 ≤ 15.0 g/kWh, NOx ≤ 3.4 g/kWh, SOx ≤ 0.1% sulfur',
+            'Tier I' => 'CO2 ≤ 17.0 Ton, NOx ≤ 14.4 Ton, SOx ≤ 3.5% sulfur',
+            'Tier II' => 'CO2 ≤ 16.0 Ton, NOx ≤ 9.7 Ton, SOx ≤ 0.5% sulfur',
+            'Tier III' => 'CO2 ≤ 15.0 Ton, NOx ≤ 3.4 Ton, SOx ≤ 0.1% sulfur',
         ];
 
         $overall = $co2_color == 'success' && $nox_color == 'success' && $sox_color == 'success' && $cii_color == 'success' ? 'Kapal Ramah Lingkungan' : 'Perlu Evaluasi Operasional';

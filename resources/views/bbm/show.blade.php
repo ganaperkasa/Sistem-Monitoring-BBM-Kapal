@@ -67,7 +67,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>CO₂</h6>
-                                <h5>{{ round($data->co2) }} Kg CO₂</h5>
+                                <h5>{{ round($data->co2 / 1000, 2) }} Ton</h5>
                                 <span class="badge bg-{{ $co2_color }}">{{ $co2_status }}</span>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>NOx</h6>
-                                <h5> {{ round( $data->nox) }} Kg</h5>
+                                <h5> {{ round( $data->nox / 1000, 2) }} Ton</h5>
                                 <span class="badge bg-{{ $nox_color }}">{{ $nox_status }}</span>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>SOx</h6>
-                                <h5>{{ round($data->sox) }} Kg</h5>
+                                <h5>{{ $data->bbm->sulfur }} %</h5>
                                 <span class="badge bg-{{ $sox_color }}">{{ $sox_status }}</span>
                             </div>
                         </div>

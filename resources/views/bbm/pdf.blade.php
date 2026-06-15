@@ -120,22 +120,22 @@
             </tr>
             <tr>
                 <td>CO2</td>
-                <td>{{ $data->co2 }} g/kWh</td>
+                <td>{{ round($data->co2 / 1000, 2) }} Ton</td>
                 <td><span class="badge {{ $co2_color }}">{{ $co2_status }}</span></td>
             </tr>
             <tr>
                 <td>NOx</td>
-                <td>{{ $data->nox }} g/kWh</td>
+                <td>{{ round($data->nox / 1000, 2) }} Ton</td>
                 <td><span class="badge {{ $nox_color }}">{{ $nox_status }}</span></td>
             </tr>
             <tr>
                 <td>SOx</td>
-                <td>{{ $data->sox }} % sulfur</td>
+                <td>{{ $data->bbm->sulfur }} %</td>
                 <td><span class="badge {{ $sox_color }}">{{ $sox_status }}</span></td>
             </tr>
             <tr>
                 <td>CII</td>
-                <td>{{ $data->cii }} gCO2/ton·NM</td>
+                <td>{{ number_format($data->cii, 2) }} gCO2/ton·NM</td>
                 <td><span class="badge {{ $cii_color }}">{{ $cii_status }}</span></td>
             </tr>
         </table>
