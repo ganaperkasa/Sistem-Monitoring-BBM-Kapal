@@ -47,12 +47,15 @@ class KonsumsiBBMController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+    'rpm' => str_replace(',', '.', $request->rpm),
+]);
         $request->validate(
             [
                 'jenis_kapal' => 'required',
                 'tahun_kapal' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
                 'kapasitas_kapal' => 'required|numeric|min:1',
-                'rpm' => 'required|numeric',
+                'rpm' => ['required','numeric','regex:/^\d+(\.\d{1,3})?$/'],
                 'daya_mesin' => 'required|numeric',
                 'jarak_tempuh' => 'required|numeric',
                 'konsumsi_bbm' => 'required|numeric',
@@ -71,6 +74,7 @@ class KonsumsiBBMController extends Controller
                 'kapasitas_kapal.min' => 'Kapasitas kapal minimal 1 GT',
                 'rpm.required' => 'RPM wajib diisi',
                 'rpm.numeric' => 'RPM harus berupa angka',
+                'rpm.regex' => 'RPM maksimal 3 angka di belakang koma',
                 'rpm2.required' => 'RPM wajib diisi',
                 'rpm2.numeric' => 'RPM harus berupa angka',
                 'daya_mesin.required' => 'Daya mesin wajib diisi',
@@ -137,7 +141,7 @@ class KonsumsiBBMController extends Controller
             'area' => $request->area,
             'tier' => $tier,
             'rpm2' => $request->rpm2,
-            'rpm' => $request->rpm,
+            'rpm' => str_replace(',', '.', $request->rpm),
             'daya_mesin' => $request->daya_mesin,
             'lama_operasi' => $lama_operasi,
             'jarak_tempuh' => $request->jarak_tempuh,
