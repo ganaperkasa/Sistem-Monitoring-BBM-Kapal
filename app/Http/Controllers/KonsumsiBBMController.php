@@ -78,8 +78,8 @@ class KonsumsiBBMController extends Controller
             ],
         );
 
-        $lama_operasi = $this->hitungLamaOperasi($request->jarak_tempuh, $request->rpm);
-        $konsumsi_bbm = $this->hitungKonsumsiBBM($request->daya_mesin, $lama_operasi);
+        $lama_operasi = round($this->hitungLamaOperasi($request->jarak_tempuh, $request->rpm), 3);
+$konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_operasi), 3);
         $konsumsi_bbm_liter = $konsumsi_bbm / 0.85;
         $bbm = JenisBBM::find($request->jenis_bbm_id);
 
