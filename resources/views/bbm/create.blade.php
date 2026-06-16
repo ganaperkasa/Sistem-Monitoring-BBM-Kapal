@@ -42,8 +42,8 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Kapasitas Kapal (GT)</label>
-                <input type="number" name="kapasitas_kapal" value="{{ old('kapasitas_kapal') }}"class="form-control @error('kapasitas_kapal') is-invalid @enderror" required>
+                <label class="form-label">Kapasitas Kapal (GT/DWT)</label>
+                <input type="number" name="kapasitas_kapal" value="{{ old('kapasitas_kapal') }}"class="form-control @error('kapasitas_kapal') is-invalid @enderror" placeholder="(GT untuk kapal penumpang atau ro-ro)" required>
                 @error('kapasitas_kapal')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -62,6 +62,15 @@
             <div class="mb-3">
                 <label class="form-label">Tier IMO</label>
                 <input type="text" id="tier" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">RPM Kapal (RPM)</label>
+                <input type="number" id="rpm2" name="rpm2" value="{{ old('rpm2') }}"class="form-control @error('rpm2') is-invalid @enderror" required>
+                @error('rpm2')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
             </div>
 
             <div class="mb-3">
@@ -156,7 +165,7 @@ function hitungKonsumsiBBM() {
     let lama = parseFloat(document.getElementById('lama_operasi').value);
 
     if (!isNaN(daya) && !isNaN(lama)) {
-        let bbm = (daya * lama * 0.2) / 0.85;
+        let bbm = daya * lama * 0.232;
         document.getElementById('konsumsi_bbm').value = bbm.toFixed(2);
     } else {
         document.getElementById('konsumsi_bbm').value = '';

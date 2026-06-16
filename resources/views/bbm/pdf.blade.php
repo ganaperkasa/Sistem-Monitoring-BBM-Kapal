@@ -130,7 +130,7 @@
             </tr>
             <tr>
                 <td>SOx</td>
-                <td>{{ $data->bbm->sulfur }} %</td>
+                <td>{{ round($data->sox, 2) }} g/Kwh</td>
                 <td><span class="badge {{ $sox_color }}">{{ $sox_status }}</span></td>
             </tr>
             <tr>

@@ -87,7 +87,7 @@
                         <div class="card border-0 shadow-sm">
                             <div class="card-body">
                                 <h6>SOx</h6>
-                                <h5>{{ $data->bbm->sulfur }} %</h5>
+                                <h5>{{ round($data->sox, 2) }} g/Kwh</h5>
                                 <span class="badge bg-{{ $sox_color }}">{{ $sox_status }}</span>
                             </div>
                         </div>

@@ -57,6 +57,7 @@ class KonsumsiBBMController extends Controller
                 'jarak_tempuh' => 'required|numeric',
                 'konsumsi_bbm' => 'required|numeric',
                 'jenis_bbm_id' => 'required',
+                'rpm2' => 'required|numeric',
             ],
             [
                 'jenis_kapal.required' => 'Jenis kapal wajib diisi',
@@ -70,6 +71,8 @@ class KonsumsiBBMController extends Controller
                 'kapasitas_kapal.min' => 'Kapasitas kapal minimal 1 GT',
                 'rpm.required' => 'RPM wajib diisi',
                 'rpm.numeric' => 'RPM harus berupa angka',
+                'rpm2.required' => 'RPM wajib diisi',
+                'rpm2.numeric' => 'RPM harus berupa angka',
                 'daya_mesin.required' => 'Daya mesin wajib diisi',
                 'daya_mesin.numeric' => 'Daya mesin harus berupa angka',
                 'jarak_tempuh.required' => 'Jarak tempuh wajib diisi',
@@ -79,41 +82,52 @@ class KonsumsiBBMController extends Controller
         );
 
         $lama_operasi = round($this->hitungLamaOperasi($request->jarak_tempuh, $request->rpm), 3);
-$konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_operasi), 3);
-        $konsumsi_bbm_liter = $konsumsi_bbm / 0.85;
+        $konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_operasi), 3);
+        $konsumsi_bbm_ton = $konsumsi_bbm / 1000; // liter ke ton
         $bbm = JenisBBM::find($request->jenis_bbm_id);
 
         $tier = $this->getTier($request->tahun_kapal, false);
-        $co2 = $konsumsi_bbm * $bbm->faktor_emisi;
-        $sox = 2 * $bbm->sulfur * $konsumsi_bbm;
+        $co2 = ($konsumsi_bbm / 1000) * $bbm->faktor_emisi; // liter ke kg ke ton ///satuan co2 = ton
+        // $sox = 2 * $bbm->sulfur * $konsumsi_bbm;
+        $sox1 = ($konsumsi_bbm * 1000) / ($request->daya_mesin * $lama_operasi);
+        $sox = $sox1 * $bbm->sulfur * 1.955; 
 
-        $kecepatan = $request->rpm;
-        if ($kecepatan <= 10) {
-            $rpm = 100;
-        } elseif ($kecepatan <= 20) {
-            $rpm = 500;
-        } else {
-            $rpm = 1000;
-        }
+        $rpm2 = $request->rpm2;
+
         if ($tier == 'Tier I') {
-            $k = 45;
+            if ($rpm2 < 130) {
+                $ef_nox = 17;
+            } elseif ($rpm2 < 2000) {
+                $ef_nox = 45 * pow($rpm2, -0.2);
+            } else {
+                $ef_nox = 9.8;
+            }
         } elseif ($tier == 'Tier II') {
-            $k = 44;
+            if ($rpm2 < 130) {
+                $ef_nox = 14.4;
+            } elseif ($rpm2 < 2000) {
+                $ef_nox = 44 * pow($rpm2, -0.23);
+            } else {
+                $ef_nox = 7.7;
+            }
         } else {
-            $k = 43;
+            // Tier III
+
+            if ($rpm2 < 130) {
+                $ef_nox = 3.4;
+            } elseif ($rpm2 < 2000) {
+                $ef_nox = 9 * pow($rpm2, -0.2);
+            } else {
+                $ef_nox = 2.6;
+            }
         }
 
-        if ($rpm < 130) {
-            $ef_nox = 17;
-        } elseif ($rpm <= 2000) {
-            $ef_nox = $k * pow($rpm, -0.23);
-        } else {
-            $ef_nox = 9.8;
-        }
+        // Perhitungan NOx (kg)
+        $nox = ($request->daya_mesin * $lama_operasi * $ef_nox) / 1000;
+        // $dwt = $request->kapasitas_kapal * 1.5;
+        $cii = round(($co2 * 1000) / ($request->jarak_tempuh * $request->kapasitas_kapal), 2);
 
-        $nox = ($ef_nox * $request->daya_mesin * $lama_operasi) / 1000;
-        $dwt = $request->kapasitas_kapal * 1.5;
-        $cii = round(($co2 * 1000) / ($request->jarak_tempuh * $dwt), 2);
+        //cii = co2 * 1000 / (jarak tempuh * berat kapal)
 
         Operasional::create([
             'user_id' => auth()->id(),
@@ -122,6 +136,7 @@ $konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_opera
             'kapasitas_kapal' => $request->kapasitas_kapal,
             'area' => $request->area,
             'tier' => $tier,
+            'rpm2' => $request->rpm2,
             'rpm' => $request->rpm,
             'daya_mesin' => $request->daya_mesin,
             'lama_operasi' => $lama_operasi,
@@ -160,7 +175,7 @@ $konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_opera
     private function hitungKonsumsiBBM($daya_mesin, $lama_operasi)
     {
         if ($daya_mesin > 0 && $lama_operasi > 0) {
-            return $daya_mesin * $lama_operasi * 0.2;
+            return $daya_mesin * $lama_operasi * 0.232;
         }
 
         return 0;
@@ -175,7 +190,7 @@ $konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_opera
 
         $co2_ton = $data->co2 / 1000;
         $nox_ton = $data->nox / 1000;
-        $sox_ton = $data->sox / 1000;
+        $sox = $data->sox;
         $bbm = JenisBBM::find($data->jenis_bbm_id);
         $sulfur = $bbm->sulfur;
 
@@ -199,14 +214,11 @@ $konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_opera
             $nox_status = 'Tinggi';
             $nox_color = 'danger';
         }
-        if ($sulfur <= 0.001) {
-            $sox_status = 'Sangat Bersih';
-            $sox_color = 'success';
-        } elseif ($sulfur <= 0.005) {
+        if ($sox <= 2.35) {
             $sox_status = 'Sesuai IMO';
-            $sox_color = 'warning';
+            $sox_color = 'success';
         } else {
-            $sox_status = 'Tidak Sesuai';
+            $sox_status = 'Belum Sesuai';
             $sox_color = 'danger';
         }
         if ($data->cii < 5) {
@@ -241,7 +253,7 @@ $konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_opera
 
         $co2_ton = $data->co2 / 1000;
         $nox_ton = $data->nox / 1000;
-        $sox_ton = $data->sox / 1000;
+        $sox = $data->sox ;
         $bbm = JenisBBM::find($data->jenis_bbm_id);
         $sulfur = $bbm->sulfur;
 
@@ -265,14 +277,11 @@ $konsumsi_bbm = round($this->hitungKonsumsiBBM($request->daya_mesin, $lama_opera
             $nox_status = 'Tinggi';
             $nox_color = 'danger';
         }
-        if ($sulfur <= 0.001) {
-            $sox_status = 'Sangat Bersih';
-            $sox_color = 'success';
-        } elseif ($sulfur <= 0.005) {
+        if ($sox <= 2.35) {
             $sox_status = 'Sesuai IMO';
-            $sox_color = 'warning';
+            $sox_color = 'success';
         } else {
-            $sox_status = 'Tidak Sesuai';
+            $sox_status = 'Belum Sesuai';
             $sox_color = 'danger';
         }
         if ($data->cii < 5) {
