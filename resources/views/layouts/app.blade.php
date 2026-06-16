@@ -10,6 +10,21 @@
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Ubah background menjadi biru gradient */
+    body {
+      background: linear-gradient(135deg, #0066cc 0%, #0080ff 50%, #00bfff 100%);
+      min-height: 100vh;
+    }
+
+    .radial-gradient {
+      background: linear-gradient(135deg, #0066cc 0%, #0080ff 50%, #00bfff 100%) !important;
+    }
+
+    .radial-gradient:before {
+      display: none !important;
+    }
+  </style>
 @stack('styles')
 </head>
 

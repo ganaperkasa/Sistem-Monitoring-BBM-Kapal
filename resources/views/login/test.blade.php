@@ -3,7 +3,7 @@
 @section('content')
 <section class="login-card" role="main" aria-labelledby="login-title">
     <div class="logo-wrapper">
-      <img src="//siakad.poltekpel-sby.ac.id/images/logopoltekpel.png" alt="Logo Politeknik Pelayaran Surabaya" loading="eager">
+      <img src="{{ asset('assets/images/logos/logopoltekpel.png') }}" alt="Logo Politeknik Pelayaran Surabaya" loading="eager">
     </div>
 
     <header class="login-header">
@@ -16,11 +16,16 @@
       </div>
       <h1 id="login-title">SIGN IN</h1>
       </header>
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
-
-    <form id="login-form" novalidate autocomplete="on">
+    <form method="POST" action="{{ route('login.post') }}" id="login-form" novalidate autocomplete="on">
+    @csrf
       <div class="form-group">
-        <input type="text" name="username" id="username" placeholder="Username" autocomplete="username" required aria-label="Username" autocapitalize="off" autocorrect="off" spellcheck="false">
+        <input type="text" name="email" id="email" placeholder="Email" autocomplete="email" required aria-label="Email" autocapitalize="off" autocorrect="off" spellcheck="false">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
           <circle cx="12" cy="7" r="4"></circle>
@@ -28,7 +33,7 @@
       </div>
 
       <div class="form-group">
-        <input type="password" name="password" id="txtpassword" placeholder="Password" autocomplete="current-password" required aria-label="Password">
+        <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password" required aria-label="Password">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <rect x="3" y="11" width="18" height="11" rx="2"></rect>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -57,10 +62,9 @@
 
       <div class="divider">atau</div>
 
-      <button type="button" class="btn-google"  aria-label="Login dengan Google">
-
+      <a href="{{ route('register') }}" class="btn-google d-inline-flex align-items-center justify-content-center" aria-label="Buat akun baru">
         Buat akun baru
-      </button>
+      </a>
       <div id="g_id_signin" data-type="standard" style="margin-top:10px;display:none"></div>
     </form>
 
@@ -71,4 +75,23 @@
     </footer>
   </section>
 
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const password = document.getElementById('password');
+    const toggle = document.getElementById('togglePwd');
+    const iconShow = document.getElementById('iconShow');
+    const iconHide = document.getElementById('iconHide');
+
+    toggle.addEventListener('click', function () {
+        const isPassword = password.type === 'password';
+
+        password.type = isPassword ? 'text' : 'password';
+
+        iconShow.style.display = isPassword ? 'none' : 'block';
+        iconHide.style.display = isPassword ? 'block' : 'none';
+    });
+});
+</script>
+
 @endsection
+

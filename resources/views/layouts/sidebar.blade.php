@@ -1,10 +1,66 @@
 <!-- Sidebar Start -->
+    <style>
+      .left-sidebar {
+        background: linear-gradient(135deg, #0080ff 10%, #00bfff 100%);
+        border: none;
+      }
+
+      .left-sidebar .sidebar-nav .sidebar-link {
+        color: white;
+      }
+
+      .left-sidebar .sidebar-nav .sidebar-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .left-sidebar .nav-small-cap {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .left-sidebar .sidebar-link small {
+        color: white;
+      }
+
+      .brand-logo {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand-logo .logo-img {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+.brand-logo .logo-img img {
+  max-width: 140px;
+  width: 60%;
+  height: auto;
+}
+
+/* tombol close tetap di pojok kanan */
+.brand-logo .close-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+/* Responsive mobile */
+@media (max-width: 991.98px) {
+  .brand-logo .logo-img img {
+    max-width: 120px;
+    width: 70%;
+  }
+}
+    </style>
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img">
-            {{-- <img src="{{ asset('assets/images/logos/logopoltekpel.png') }}" class="dark-logo" width="180" alt="" /> --}}
+        <div class="brand-logo text-center">
+          <a class="text-nowrap logo-img">
+            <img src="{{ asset('assets/images/logos/logopoltekpel.png') }}" class="dark-logo" alt="Logo Poltekpel" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
