@@ -13,7 +13,6 @@
 
             <div class="card-body" style="word-wrap: break-word;">
 
-                {{-- ================= INFO KAPAL ================= --}}
                 <h6 class="mb-3">Informasi Kapal</h6>
                 <div class="row mb-4">
                     <div class="col-lg-4 col-md-6 col-12 mb-2">
@@ -30,7 +29,6 @@
                     </div>
                 </div>
 
-                {{-- ================= OPERASIONAL ================= --}}
                 <h6 class="mb-3">Data Operasional</h6>
                 <div class="row mb-4">
                     <div class="col-lg-3 col-md-4 col-6 mb-2">
@@ -59,7 +57,6 @@
                     </div>
                 </div>
 
-                {{-- ================= HASIL EMISI ================= --}}
                 <h6 class="mb-3">Hasil Emisi</h6>
                 <div class="row text-center mb-4 g-2">
 
@@ -105,7 +102,6 @@
 
                 </div>
 
-                {{-- ================= REKOMENDASI ================= --}}
                 <h6 class="mb-3">Rekomendasi</h6>
                 <div class="card bg-light border-0 mb-4">
                     <div class="card-body">
@@ -159,7 +155,6 @@
                     </div>
                 </div>
 
-                {{-- ================= KESIMPULAN ================= --}}
                 <div class="alert alert-info">
                     <strong>Kesimpulan Akhir:</strong><br>
                     Sistem menunjukkan bahwa kondisi emisi kapal saat ini

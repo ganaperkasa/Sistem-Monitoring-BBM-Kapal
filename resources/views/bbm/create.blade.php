@@ -140,7 +140,6 @@
                 <div class="mb-3">
 
                     <button class="btn btn-primary">Simpan & Hitung</button>
-                    {{-- <a href="{{ route('operasional.') }}" class="btn btn-danger">Batal</a> --}}
                 </div>
             </form>
         </div>

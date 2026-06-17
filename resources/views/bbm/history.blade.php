@@ -9,12 +9,7 @@
 
         <div class="card-body">
             <h5 class="card-title fw-semibold ">Data Operasional Kapal</h5>
-            {{-- <div class="d-flex justify-content-end ">
 
-                <a href="{{ route('operasional.create') }}" class="btn btn-primary mb-2">
-                    + Tambah Data
-                </a>
-            </div> --}}
             <div class="table-responsive">
                 <table id="table" class="table table-bordered">
                     <thead>
@@ -42,7 +37,7 @@
                 <div class="card-body p-2 p-md-3">
                     <h5 class="card-title fw-semibold fs-6 fs-md-5">Data Terakhir</h5>
 
-                    <div class="table-responsive"> {{-- 🔥 WAJIB --}}
+                    <div class="table-responsive"> 
                         <table class="table mb-0">
                             <thead>
                                 <tr>
@@ -74,9 +69,9 @@
     <div class="row mt-3">
         <div class="col-12">
             <div class="card w-100">
-                <div class="card-body p-2 p-md-3"> {{-- 🔥 padding kecil di HP --}}
+                <div class="card-body p-2 p-md-3">
                     <h5 class="card-title fw-semibold fs-6 fs-md-5 mb-2">Grafik Emisi</h5>
-                    <div id="chart" style="width:100%; max-width:100%;"></div> {{-- 🔥 FIX --}}
+                    <div id="chart" style="width:100%; max-width:100%;"></div>
                 </div>
             </div>
         </div>

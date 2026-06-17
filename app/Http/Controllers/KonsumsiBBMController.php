@@ -94,7 +94,7 @@ class KonsumsiBBMController extends Controller
         $co2 = ($konsumsi_bbm / 1000) * $bbm->faktor_emisi; // liter ke kg ke ton ///satuan co2 = ton
         // $sox = 2 * $bbm->sulfur * $konsumsi_bbm;
         $sox1 = ($konsumsi_bbm * 1000) / ($request->daya_mesin * $lama_operasi);
-        $sox = $sox1 * $bbm->sulfur * 1.955; 
+        $sox = $sox1 * $bbm->sulfur * 1.955;
 
         $rpm2 = $request->rpm2;
 
@@ -115,7 +115,6 @@ class KonsumsiBBMController extends Controller
                 $ef_nox = 7.7;
             }
         } else {
-            // Tier III
 
             if ($rpm2 < 130) {
                 $ef_nox = 3.4;
@@ -126,7 +125,6 @@ class KonsumsiBBMController extends Controller
             }
         }
 
-        // Perhitungan NOx (kg)
         $nox = ($request->daya_mesin * $lama_operasi * $ef_nox) / 1000;
         // $dwt = $request->kapasitas_kapal * 1.5;
         $cii = round(($co2 * 1000) / ($request->jarak_tempuh * $request->kapasitas_kapal), 2);
